@@ -3743,7 +3743,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       '/public/images/smartphones/samsung_s24_ultra_special_silver.webp',
       '/public/images/smartphones/shopping_1.webp',
       '/public/images/smartphones/shopping (1).webp',
-      '/Phone images /shopping (1).webp'
+      '/images/smartphones/shopping (1).webp'
     ],
     warranty: '1 Year Samsung India Warranty'
   },
