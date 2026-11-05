@@ -1,0 +1,6 @@
+{
+  "name": "Zyntra — Full-Stack E-Commerce Store",
+  "description": "Modern, stylish, trustworthy online shopping for electronics and lifestyle products with real-time cart, checkout, order tracking, and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

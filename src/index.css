@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #A20B1A;
+  --color-primary-hover: #810916;
+  --color-background: #FFFFFF;
+  --color-surface: #F5F5F7;
+  --color-banner-pink: #FEEEEF;
+  --color-banner-cream: #FEF3DF;
+  --color-text-primary: #232429;
+  --color-text-secondary: #777777;
+  --color-border: #E6E6E6;
+  --color-success: #16803C;
+  --color-error: #DC2626;
+}
+
+:root {
+  /* Brand */
+  --primary: #A20B1A;
+  --primary-hover: #810916;
+
+  /* Backgrounds */
+  --background: #FFFFFF;
+  --surface: #F5F5F7;
+  --banner-pink: #FEEEEF;
+  --banner-cream: #FEF3DF;
+
+  /* Typography */
+  --text-primary: #232429;
+  --text-secondary: #777777;
+
+  /* Borders */
+  --border: #E6E6E6;
+
+  /* Status */
+  --success: #16803C;
+  --error: #DC2626;
+
+  /* Backward compatible aliases */
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-hover);
+  --color-bg: var(--background);
+  --color-bg-secondary: var(--surface);
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-error: var(--error);
+}
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--background);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
