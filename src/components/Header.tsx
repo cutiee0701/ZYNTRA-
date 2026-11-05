@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ShoppingBag, Heart, User as UserIcon, Menu, X, 
   ChevronDown, Truck, Tag, HelpCircle, PhoneCall,
-  SlidersHorizontal, Sparkles, Flame
+  SlidersHorizontal, Sparkles, Flame, Github
 } from 'lucide-react';
 import { Product, Category, User, CartItem } from '../types';
 import { formatRupee } from '../lib/api';
@@ -30,6 +30,7 @@ interface HeaderProps {
   onOpenAdmin: () => void;
   onOpenBlog?: () => void;
   onOpenContact?: () => void;
+  onOpenGitHubSync?: () => void;
   onSearch: (query: string) => void;
   onSelectProduct: (product: Product) => void;
   products: Product[];
@@ -54,6 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAdmin,
   onOpenBlog,
   onOpenContact,
+  onOpenGitHubSync,
   onSearch,
   onSelectProduct,
   products,
@@ -81,6 +83,19 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center gap-4 text-rose-100">
+            {onOpenGitHubSync && (
+              <>
+                <button
+                  onClick={onOpenGitHubSync}
+                  className="bg-black/25 hover:bg-black/40 text-white px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer flex items-center gap-1.5 border border-white/20 shadow-xs"
+                  title="Direct Push to GitHub"
+                >
+                  <Github className="w-3 h-3 text-purple-300" />
+                  <span>Push to GitHub</span>
+                </button>
+                <span className="text-rose-300">|</span>
+              </>
+            )}
             <button 
               onClick={onOpenTracking} 
               className="hover:text-white transition-colors cursor-pointer flex items-center gap-1"

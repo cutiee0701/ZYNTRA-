@@ -22,6 +22,7 @@ import { ContactModal } from './components/ContactModal';
 import { PolicyModal } from './components/PolicyModal';
 import { FAQSection } from './components/FAQSection';
 import { AdminDashboard } from './components/AdminDashboard';
+import { GitHubSyncModal } from './components/GitHubSyncModal';
 import { Toast, ToastMessage } from './components/Toast';
 import { 
   Product, Category, CartItem, Order, User, Coupon, Review 
@@ -73,6 +74,7 @@ export default function App() {
   const [blogOpen, setBlogOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [policyOpen, setPolicyOpen] = useState(false);
+  const [githubModalOpen, setGithubModalOpen] = useState(false);
 
   // Toasts
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -319,6 +321,7 @@ export default function App() {
           setTrackingOrderNumber('');
           setTrackingOpen(true);
         }}
+        onOpenGitHubSync={() => setGithubModalOpen(true)}
         onOpenAdmin={() => {
           if (currentUser?.role === 'admin') {
             setAdminOpen(true);
@@ -1274,6 +1277,10 @@ export default function App() {
           setAuthAdminMode(true);
           setAuthOpen(true);
         }}
+        onOpenGitHubSync={() => {
+          setAdminOpen(false);
+          setGithubModalOpen(true);
+        }}
         onLogout={async () => {
           await api.logout();
           setCurrentUser(null);
@@ -1282,6 +1289,12 @@ export default function App() {
           setAuthAdminMode(false);
           addToast('info', 'Administrator signed out successfully.');
         }}
+      />
+
+      {/* Direct Push to GitHub Modal */}
+      <GitHubSyncModal
+        isOpen={githubModalOpen}
+        onClose={() => setGithubModalOpen(false)}
       />
 
       {/* Floating Toast Notification Stack */}

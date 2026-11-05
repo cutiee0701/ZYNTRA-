@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   X, BarChart3, Package, ShoppingCart, Tag, Users, 
   AlertTriangle, Check, Plus, Edit, Trash2, ArrowUpRight, 
-  DollarSign, RefreshCw, ShieldAlert, ShieldCheck, LogOut
+  DollarSign, RefreshCw, ShieldAlert, ShieldCheck, LogOut, Github
 } from 'lucide-react';
 import { Product, Order, Coupon, User } from '../types';
 import { api, formatRupee } from '../lib/api';
@@ -15,6 +15,7 @@ interface AdminDashboardProps {
   currentUser?: User | null;
   onRequireAdminLogin?: () => void;
   onLogout?: () => void;
+  onOpenGitHubSync?: () => void;
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
@@ -25,6 +26,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   currentUser,
   onRequireAdminLogin,
   onLogout,
+  onOpenGitHubSync,
 }) => {
   if (!isOpen) return null;
 
@@ -194,6 +196,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </span>
                 <span className="text-[10px] text-zinc-400 font-mono">{currentUser.email}</span>
               </div>
+            )}
+
+            {onOpenGitHubSync && (
+              <button
+                onClick={onOpenGitHubSync}
+                className="px-3 py-1.5 text-xs font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer border border-purple-500"
+                title="Direct Push Website to GitHub"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Push to GitHub</span>
+              </button>
             )}
 
             <button

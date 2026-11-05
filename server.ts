@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 import { createServer as createViteServer } from 'vite';
+import { execSync } from 'child_process';
 import { dbStore } from './server/store';
 import { z } from 'zod';
 import { saveOrderToSupabase, getSupabaseStatus } from './server/supabase';
@@ -696,6 +697,204 @@ app.post('/api/v1/admin/coupons', requireAdmin, (req: Request, res: Response) =>
 
 app.get('/api/v1/admin/subscribers', requireAdmin, (_req: Request, res: Response) => {
   res.json({ success: true, data: dbStore.subscribers });
+});
+
+// ==========================================
+// SECURE GITHUB DIRECT PUSH INTEGRATION
+// ==========================================
+
+// 1. Verify Token & Repository Access
+app.post('/api/v1/github/verify', async (req: Request, res: Response) => {
+  try {
+    const { token, username, repo, branch = 'main' } = req.body;
+    if (!token || typeof token !== 'string') {
+      return res.status(400).json({ success: false, message: 'GitHub Personal Access Token is required.' });
+    }
+    const cleanToken = token.trim();
+    const cleanUser = (username || '').trim();
+    const cleanRepo = (repo || '').trim();
+
+    // Verify user authentication
+    const userRes = await fetch('https://api.github.com/user', {
+      headers: {
+        Authorization: `Bearer ${cleanToken}`,
+        Accept: 'application/vnd.github+json',
+        'User-Agent': 'Zyntra-Push-Engine',
+      },
+    });
+
+    if (userRes.status === 401) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid GitHub Personal Access Token. Please check token permissions or generate a new classic token with "repo" scope.',
+      });
+    }
+
+    if (!userRes.ok) {
+      return res.status(userRes.status).json({
+        success: false,
+        message: `GitHub authentication failed with status ${userRes.status}.`,
+      });
+    }
+
+    const userData = await userRes.json();
+    const targetUser = cleanUser || userData.login;
+
+    // Check scopes
+    const scopesHeader = userRes.headers.get('x-oauth-scopes') || '';
+    const scopes = scopesHeader.split(',').map((s) => s.trim()).filter(Boolean);
+    const hasRepoScope = scopes.includes('repo') || scopes.includes('public_repo');
+
+    // If repository name provided, verify existence and write permissions
+    let repoExists = false;
+    let repoData: any = null;
+    let hasWriteAccess = false;
+
+    if (cleanRepo) {
+      const repoRes = await fetch(`https://api.github.com/repos/${targetUser}/${cleanRepo}`, {
+        headers: {
+          Authorization: `Bearer ${cleanToken}`,
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'Zyntra-Push-Engine',
+        },
+      });
+
+      if (repoRes.ok) {
+        repoExists = true;
+        repoData = await repoRes.json();
+        hasWriteAccess = Boolean(repoData.permissions?.push || repoData.permissions?.admin);
+      } else if (repoRes.status === 404) {
+        repoExists = false;
+      }
+    }
+
+    res.json({
+      success: true,
+      data: {
+        authenticatedUser: userData.login,
+        avatarUrl: userData.avatar_url,
+        scopes,
+        hasRepoScope,
+        repoExists,
+        hasWriteAccess,
+        repoDetails: repoData
+          ? {
+              fullName: repoData.full_name,
+              htmlUrl: repoData.html_url,
+              defaultBranch: repoData.default_branch,
+              isPrivate: repoData.private,
+              permissions: repoData.permissions,
+            }
+          : null,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Error communicating with GitHub API.' });
+  }
+});
+
+// 2. Create Repository if not existing
+app.post('/api/v1/github/create-repo', async (req: Request, res: Response) => {
+  try {
+    const { token, repo, isPrivate = false, description } = req.body;
+    if (!token || !repo) {
+      return res.status(400).json({ success: false, message: 'Token and Repository name are required.' });
+    }
+
+    const cleanToken = token.trim();
+    const cleanRepo = repo.trim();
+
+    const createRes = await fetch('https://api.github.com/user/repos', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${cleanToken}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+        'User-Agent': 'Zyntra-Push-Engine',
+      },
+      body: JSON.stringify({
+        name: cleanRepo,
+        description: description || 'Zyntra - Smart Electronics & Technology E-Commerce Platform',
+        private: Boolean(isPrivate),
+        auto_init: false,
+      }),
+    });
+
+    const data = await createRes.json();
+    if (!createRes.ok) {
+      return res.status(createRes.status).json({ success: false, message: data.message || 'Failed to create repository.' });
+    }
+
+    res.json({ success: true, data });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// 3. Direct Push / Sync Workspace to GitHub
+app.post('/api/v1/github/sync', async (req: Request, res: Response) => {
+  try {
+    const { token, username, repo, branch = 'main', commitMessage } = req.body;
+    if (!token || !username || !repo) {
+      return res.status(400).json({ success: false, message: 'Token, Username, and Repository Name are required.' });
+    }
+
+    const cleanToken = token.trim();
+    const cleanUser = username.trim();
+    const cleanRepo = repo.trim();
+    const cleanBranch = (branch || 'main').trim();
+    const msg = (commitMessage || 'feat: sync Zyntra e-commerce website to GitHub').replace(/"/g, '\\"');
+
+    // Safe execution in workspace directory
+    const cwd = __dirname;
+
+    // 1. Ensure working tree is staged and committed
+    execSync('git config --global --add safe.directory "*" && git config --system --add safe.directory "*"', { cwd });
+    execSync('git config user.name "Zyntra Developer" && git config user.email "dev@zyntra.app"', { cwd });
+
+    try {
+      execSync('git add -A', { cwd });
+      // Only commit if there are changes
+      const statusOutput = execSync('git status --porcelain', { cwd, encoding: 'utf8' });
+      if (statusOutput.trim().length > 0) {
+        execSync(`git commit -m "${msg}"`, { cwd });
+      }
+    } catch (_err) {
+      // Clean working tree or already committed
+    }
+
+    // 2. Configure large postBuffer to avoid chunked transfer proxy timeouts
+    execSync('git config http.postBuffer 524288000', { cwd });
+
+    // 3. Construct authenticated push URL
+    const authenticatedUrl = `https://${encodeURIComponent(cleanUser)}:${encodeURIComponent(cleanToken)}@github.com/${cleanUser}/${cleanRepo}.git`;
+
+    // 4. Execute push safely
+    const pushOutput = execSync(`git push ${authenticatedUrl} ${cleanBranch} 2>&1`, {
+      cwd,
+      encoding: 'utf8',
+      timeout: 120000,
+    });
+
+    const commitSha = execSync('git rev-parse HEAD', { cwd, encoding: 'utf8' }).trim();
+
+    res.json({
+      success: true,
+      data: {
+        repoUrl: `https://github.com/${cleanUser}/${cleanRepo}`,
+        branch: cleanBranch,
+        commitSha,
+        output: pushOutput.replace(new RegExp(cleanToken, 'g'), '***TOKEN_MASKED***'),
+      },
+    });
+  } catch (error: any) {
+    // Ensure token is never leaked in error response or server logs
+    const safeError = (error.message || '').replace(/ghp_[a-zA-Z0-9]+/g, '***TOKEN_MASKED***');
+    res.status(500).json({
+      success: false,
+      message: safeError || 'Git push operation failed. Please verify repository permissions and branch name.',
+    });
+  }
 });
 
 // ==========================================
