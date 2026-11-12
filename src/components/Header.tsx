@@ -473,11 +473,11 @@ export const Header: React.FC<HeaderProps> = ({
                       className="group relative rounded-xl overflow-hidden border border-[#E6E6E6] bg-zinc-950 text-left flex flex-col justify-end h-28 cursor-pointer shadow-xs"
                     >
                       <img
-                        src="/images/smartphones_category.jpg"
+                        src="/assets/categories/smartphones_category.jpg"
                         alt="Smartphones"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/src/assets/images/smartphones_category_1792148922139.jpg';
+                          (e.target as HTMLImageElement).src = '/assets/categories/smartphones_category_1792148922139.jpg';
                         }}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -502,11 +502,11 @@ export const Header: React.FC<HeaderProps> = ({
                       className="group relative rounded-xl overflow-hidden border border-[#E6E6E6] bg-zinc-900 text-left flex flex-col justify-end h-28 cursor-pointer shadow-xs"
                     >
                       <img
-                        src="/images/headphones/uploads_nov/headphone_sennheiser_momentum4_black_case.jpg"
+                        src="/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_black_case.jpg"
                         alt="Headphones & Sound"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/headphones/apex_noir_black.jpg';
+                          (e.target as HTMLImageElement).src = '/assets/headphones/apex_noir_black.jpg';
                         }}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />

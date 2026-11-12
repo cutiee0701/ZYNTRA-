@@ -51,8 +51,8 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
       icon: <Watch className="w-3 h-3 text-white" />,
       topBadge: 'Up to 94% OFF',
       itemCount: '18 Models',
-      image: '/public/images/smartwatches/noise_twist_round_black.png',
-      fallbackImage: '/public/assets/aistudio/images__2__e9f9ae5c.jpg',
+      image: '/assets/products/noise_twist_round_black.png',
+      fallbackImage: '/assets/products/images__2__76fba13a.jpg',
       startPrice: 'From ₹1,199',
     },
     {
@@ -62,8 +62,8 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
       icon: <Headphones className="w-3 h-3 text-white" />,
       topBadge: 'Gaming TWS',
       itemCount: '8 Models',
-      image: '/public/images/earbuds/earbuds_glossy_black.jpg',
-      fallbackImage: '/public/assets/aistudio/download__1__ab332ee4.webp',
+      image: '/assets/earbuds/earbuds_glossy_black.jpg',
+      fallbackImage: '/assets/earbuds/download_c14068e3.webp',
       startPrice: 'From ₹1,299',
     },
     {
@@ -73,8 +73,8 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
       icon: <Tablet className="w-3 h-3 text-white" />,
       topBadge: 'Android 15',
       itemCount: '14 Models',
-      image: '/public/images/tablets/new_arrivals/tablet_4_skyblue_bundle.png',
-      fallbackImage: '/public/assets/aistudio/Screenshot_2026-10-31_145833_5c450782.png',
+      image: '/assets/tablets/new_arrivals/tablet_4_skyblue_bundle.png',
+      fallbackImage: '/assets/tablets/Screenshot_2026-10-31_145833_5c450782.png',
       startPrice: 'From ₹5,999',
     },
     {
@@ -84,8 +84,8 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
       icon: <Activity className="w-3 h-3 text-white" />,
       topBadge: '60H Playtime',
       itemCount: '13 Models',
-      image: '/images/neckbands/uploads_nov/neckband_cyberwave_skyblue.webp',
-      fallbackImage: '/public/assets/aistudio/blue_main_image-533_a25cdb96.webp',
+      image: '/assets/neckbands/uploads_nov/neckband_cyberwave_skyblue.webp',
+      fallbackImage: '/assets/neckbands/blue_main_image-533_a25cdb96.webp',
       startPrice: 'From ₹799',
     },
     {
@@ -95,8 +95,8 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
       icon: <Cable className="w-3 h-3 text-white" />,
       topBadge: '24-bit DAC',
       itemCount: '14 Models',
-      image: '/public/images/leads/orange_typec_earphones.jpg',
-      fallbackImage: '/public/assets/aistudio/images__7__9d4ec62b.jpg',
+      image: '/assets/leads/orange_typec_earphones.jpg',
+      fallbackImage: '/assets/leads/images__7__2c7dd9e4.jpg',
       startPrice: 'From ₹399',
     },
   ];
@@ -148,12 +148,12 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
             {/* Image Container with aspect ratio and smooth zoom */}
             <div className="relative h-48 sm:h-56 w-full overflow-hidden">
               <img
-                src="/images/smartphones_category.jpg"
+                src="/assets/categories/smartphones_category.jpg"
                 alt="Premium modern 5G smartphones with curved OLED displays and titanium finish"
                 referrerPolicy="no-referrer"
                 loading="eager"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/src/assets/images/smartphones_category_1792148922139.jpg';
+                  (e.target as HTMLImageElement).src = '/assets/categories/smartphones_category_1792148922139.jpg';
                 }}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
               />
@@ -209,12 +209,12 @@ export const CategoriesMegaMenu: React.FC<CategoriesMegaMenuProps> = ({
             {/* Image Container with aspect ratio and smooth zoom */}
             <div className="relative h-48 sm:h-56 w-full overflow-hidden">
               <img
-                src="/images/headphones/uploads_nov/headphone_sennheiser_momentum4_black_case.jpg"
+                src="/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_black_case.jpg"
                 alt="Studio grade ANC headphones and high-fidelity acoustics"
                 referrerPolicy="no-referrer"
                 loading="eager"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/images/headphones/apex_noir_black.jpg';
+                  (e.target as HTMLImageElement).src = '/assets/headphones/apex_noir_black.jpg';
                 }}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
               />

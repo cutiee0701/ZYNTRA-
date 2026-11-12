@@ -54,9 +54,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           referrerPolicy="no-referrer"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            if (target.src.includes('/public/')) {
+            if (target.src.includes('/src/assets/images/')) {
+              target.src = target.src.replace('/src/assets/images/', '/assets/');
+            } else if (target.src.includes('/public/')) {
               target.src = target.src.replace('/public/', '/');
-            } else if (product.images[1]) {
+            } else if (target.src.includes('/images/')) {
+              target.src = target.src.replace('/images/', '/assets/');
+            } else if (product.images[1] && target.src !== product.images[1]) {
               target.src = product.images[1];
             }
           }}

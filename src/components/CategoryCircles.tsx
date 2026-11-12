@@ -14,49 +14,49 @@ export const EXPLORE_CATEGORIES: ExploreCategoryItem[] = [
     id: 'exp-smartphones',
     slug: 'smartphones',
     name: 'Smart Phones',
-    image: '/public/images/smartphones/iphone16_pro_burgundy_titanium.jpg',
+    image: '/assets/categories/iphone16_pro_burgundy_titanium.jpg',
     description: 'Apple, Samsung, OPPO, Redmi, POCO, realme, realme Narzo & OnePlus',
   },
   {
     id: 'exp-earbuds',
     slug: 'earbuds',
     name: 'Earbuds',
-    image: '/public/images/earbuds/earbuds_glossy_black.jpg',
+    image: '/assets/categories/earbuds_glossy_black.jpg',
     description: 'True wireless stereo earbuds with low-latency drivers',
   },
   {
     id: 'exp-smartwatches',
     slug: 'smartwatches',
     name: 'Smart Watches',
-    image: '/public/images/smartwatches/noise_twist_round_black.png',
+    image: '/assets/categories/noise_twist_round_black.png',
     description: 'Noise, Fire-Boltt, boAt & Zyntra Bluetooth Calling Watches from ₹1,199',
   },
   {
     id: 'exp-tablets',
     slug: 'tablets',
     name: 'Tablets',
-    image: '/public/images/tablets/galaxy_tab_a11_plus.png',
+    image: '/assets/categories/galaxy_tab_a11_plus.png',
     description: 'Flagship 3.2K & AMOLED entertainment & productivity tablets',
   },
   {
     id: 'exp-neckbands',
     slug: 'neckband',
     name: 'Neckbands',
-    image: '/public/images/neckbands/neckband_cyber_transparent_mbuddy.webp',
+    image: '/assets/categories/neckband_cyber_transparent_mbuddy.webp',
     description: 'Flexible sport Bluetooth neckbands with magnetic clips',
   },
   {
     id: 'exp-headphones',
     slug: 'headphones',
     name: 'Headphones',
-    image: '/public/images/headphones/apex_noir_black.jpg',
+    image: '/assets/categories/apex_noir_black.jpg',
     description: 'Studio over-ear active noise cancelling headphones',
   },
   {
     id: 'exp-leads',
     slug: 'leads',
     name: 'Leads',
-    image: '/public/images/leads/orange_typec_earphones.jpg',
+    image: '/assets/categories/orange_typec_earphones.jpg',
     description: 'High-fidelity Type-C DAC, Lightning & 3.5mm gold-plated audio leads',
   },
 ];
@@ -152,7 +152,7 @@ export const CategoryCircles: React.FC<CategoryCirclesProps> = ({
                       onError={(e) => {
                         const target = e.currentTarget;
                         if (isSmartphones) {
-                          target.src = '/public/assets/aistudio/images__10__c8f9cc7e.jpg';
+                          target.src = '/assets/categories/images__10__c8f9cc7e.jpg';
                         }
                       }}
                       className={`w-full h-full transition-transform duration-300 group-hover:scale-110 ${

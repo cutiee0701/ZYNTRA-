@@ -148,7 +148,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         description: newProdDesc || 'High quality electronics tuned by Zyntra acoustics.',
         features: ['High durability engineering', 'Official 1-year brand warranty'],
         specs: { Category: newProdCategory, Origin: 'Zyntra Labs' },
-        images: ['/src/assets/images/hero_audio_experience_1791888604955.jpg'],
+        images: ['/assets/banners/hero_audio_experience_1791888604955.jpg'],
         warranty: '1 Year Warranty',
       });
 

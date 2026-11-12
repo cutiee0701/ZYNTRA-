@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="orbit-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0075FF" />
+      <stop offset="50%" stop-color="#0055FF" />
+      <stop offset="100%" stop-color="#0033CC" />
+    </linearGradient>
+    <linearGradient id="orbit-cyan" x1="0%" y1="0%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#00D2FF" />
+      <stop offset="100%" stop-color="#0055FF" />
+    </linearGradient>
+    <linearGradient id="facet-shade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#002E8A" />
+      <stop offset="100%" stop-color="#00144D" />
+    </linearGradient>
+  </defs>
+
+  <!-- Orbit Ring Back Arc -->
+  <path d="M 90,260 C 70,300 130,350 250,360 C 340,368 420,340 445,300 C 458,278 440,255 410,230" 
+        stroke="url(#orbit-cyan)" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.95" />
+
+  <!-- Stylized Z Top Bar -->
+  <path d="M 110,130 L 370,130 L 332,185 L 195,185 L 110,130 Z" fill="url(#orbit-blue)" />
+
+  <!-- Diagonal Stem -->
+  <polygon points="370,130 295,185 155,370 230,370 360,195 370,130" fill="url(#orbit-blue)" />
+
+  <!-- Orbit Ring Front Arc -->
+  <path d="M 85,270 C 105,190 220,135 345,150 C 395,155 435,175 440,205 C 445,230 415,260 365,280" 
+        stroke="url(#orbit-cyan)" stroke-width="22" stroke-linecap="round" fill="none" />
+
+  <!-- Stylized Z Bottom Bar -->
+  <path d="M 125,370 L 390,370 L 352,315 L 215,315 L 125,370 Z" fill="url(#orbit-blue)" />
+
+  <!-- 3D Bevel Crease on Bottom Bar -->
+  <path d="M 125,370 L 205,340 L 215,315 L 125,370 Z" fill="url(#facet-shade)" />
+
+  <!-- Wifi / Transmission Arcs -->
+  <path d="M 405,145 C 430,170 440,200 440,225" stroke="url(#orbit-cyan)" stroke-width="15" stroke-linecap="round" fill="none" />
+  <path d="M 435,115 C 470,150 482,185 482,215" stroke="url(#orbit-cyan)" stroke-width="15" stroke-linecap="round" fill="none" />
+
+  <!-- ZYNTRA Wordmark -->
+  <text x="75" y="445" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="62" letter-spacing="-1">
+    <tspan fill="#0066FF">Z</tspan>
+    <tspan fill="#0A1128">YNTRA</tspan>
+  </text>
+
+  <!-- Tagline: — CONNECTING YOUR WORLD — -->
+  <text x="90" y="475" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="16" fill="#0A1128" letter-spacing="4" opacity="0.8">
+    — CONNECTING YOUR WORLD —
+  </text>
+</svg>

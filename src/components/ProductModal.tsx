@@ -81,10 +81,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  if (product.images[1] && target.src !== product.images[1]) {
-                    target.src = product.images[1];
+                  if (target.src.includes('/src/assets/images/')) {
+                    target.src = target.src.replace('/src/assets/images/', '/assets/');
                   } else if (target.src.includes('/public/')) {
                     target.src = target.src.replace('/public/', '/');
+                  } else if (target.src.includes('/images/')) {
+                    target.src = target.src.replace('/images/', '/assets/');
+                  } else if (product.images[1] && target.src !== product.images[1]) {
+                    target.src = product.images[1];
                   }
                 }}
                 className="w-full h-full object-contain filter drop-shadow-xs"
@@ -112,8 +116,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                       alt="" 
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        if (target.src.includes('/public/')) {
+                        if (target.src.includes('/src/assets/images/')) {
+                          target.src = target.src.replace('/src/assets/images/', '/assets/');
+                        } else if (target.src.includes('/public/')) {
                           target.src = target.src.replace('/public/', '/');
+                        } else if (target.src.includes('/images/')) {
+                          target.src = target.src.replace('/images/', '/assets/');
                         }
                       }}
                       className="w-full h-full object-contain" 

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build",
+    "validate:images": "node scripts/validate-images.js",
+    "build": "node scripts/validate-images.js && vite build && mkdir -p dist/public && cp -r dist/assets dist/public/ 2>/dev/null || true && cp -r dist/images dist/public/ 2>/dev/null || true",
     "preview": "vite preview",
     "start": "tsx server.ts",
     "clean": "rm -rf dist server.js",

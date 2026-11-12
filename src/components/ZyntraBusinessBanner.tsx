@@ -247,7 +247,7 @@ export const ZyntraBusinessBanner: React.FC<ZyntraBusinessBannerProps> = ({ onBa
                 {/* 3. White Wireless Over-Ear Headphones (Front-Right) */}
                 <div className="absolute -bottom-2 right-2 sm:right-5 z-30 w-24 sm:w-28 h-24 sm:h-28 flex items-center justify-center transform rotate-6 drop-shadow-2xl">
                   <img
-                    src="/images/headphones/pure_acoustic_white.webp"
+                    src="/assets/headphones/pure_acoustic_white.webp"
                     alt="Zyntra Pure Acoustic White Wireless ANC Headphones"
                     className="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                     onError={(e) => {

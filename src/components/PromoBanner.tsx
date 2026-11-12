@@ -66,7 +66,7 @@ export const PromoBanner: React.FC<PromoBannerProps> = ({ onShopDeals }) => {
             <div className="lg:col-span-4 flex items-center justify-center">
               <div className="w-full max-w-xs aspect-[4/3] rounded-xl overflow-hidden border border-[#E6E6E6] shadow-md bg-white">
                 <img
-                  src="/src/assets/images/hero_audio_experience_1791888604955.jpg"
+                  src="/assets/banners/hero_audio_experience_1791888604955.jpg"
                   alt="Home Living & Smart Audio"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"

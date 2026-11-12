@@ -903,6 +903,20 @@ app.post('/api/v1/github/sync', async (req: Request, res: Response) => {
 
 async function startServer() {
   const isProduction = process.env.NODE_ENV === 'production';
+  const publicPath = path.resolve(__dirname, 'public');
+  const distPath = path.resolve(__dirname, 'dist');
+  const srcAssetsPath = path.resolve(__dirname, 'src/assets');
+
+  // Universal Static Asset Routing (prevents 404s in both dev and production):
+  app.use('/images', express.static(path.resolve(publicPath, 'images')));
+  app.use('/assets', express.static(path.resolve(publicPath, 'assets')));
+  app.use('/phone_images', express.static(path.resolve(publicPath, 'phone_images')));
+  app.use('/public/images', express.static(path.resolve(publicPath, 'images')));
+  app.use('/public/assets', express.static(path.resolve(publicPath, 'assets')));
+  app.use('/public/phone_images', express.static(path.resolve(publicPath, 'phone_images')));
+  app.use('/src/assets', express.static(srcAssetsPath));
+  app.use('/public', express.static(publicPath));
+  app.use(express.static(publicPath));
 
   if (!isProduction) {
     const vite = await createViteServer({
@@ -911,8 +925,8 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.resolve(__dirname, 'dist');
     app.use(express.static(distPath));
+    app.use('/assets', express.static(path.resolve(distPath, 'assets')));
     app.get('*', (_req, res) => {
       res.sendFile(path.resolve(distPath, 'index.html'));
     });
