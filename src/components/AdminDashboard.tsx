@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, BarChart3, Package, ShoppingCart, Tag, Users, 
   AlertTriangle, Check, Plus, Edit, Trash2, ArrowUpRight, 
-  DollarSign, RefreshCw, ShieldAlert, ShieldCheck, LogOut, Github
+  DollarSign, RefreshCw, ShieldAlert, ShieldCheck, LogOut, Github,
+  FolderOpen, Image as ImageIcon, Upload
 } from 'lucide-react';
-import { Product, Order, Coupon, User } from '../types';
+import { Product, Order, Coupon, User, Category } from '../types';
 import { api, formatRupee } from '../lib/api';
+import { ImageManagementPanel } from './ImageManagementPanel';
 
 interface AdminDashboardProps {
   isOpen: boolean;
   onClose: () => void;
   products: Product[];
+  categories?: Category[];
   onRefreshProducts: () => void;
+  onImagesChanged?: () => void;
   currentUser?: User | null;
   onRequireAdminLogin?: () => void;
   onLogout?: () => void;
@@ -22,7 +26,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   isOpen,
   onClose,
   products,
+  categories = [],
   onRefreshProducts,
+  onImagesChanged,
   currentUser,
   onRequireAdminLogin,
   onLogout,
@@ -70,7 +76,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     );
   }
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'inventory' | 'coupons' | 'subscribers'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'inventory' | 'images' | 'coupons' | 'subscribers'>('overview');
   const [stats, setStats] = useState<any>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
@@ -81,9 +87,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [newProdName, setNewProdName] = useState('');
   const [newProdPrice, setNewProdPrice] = useState('');
   const [newProdStock, setNewProdStock] = useState('20');
-  const [newProdCategory, setNewProdCategory] = useState<'smartphones' | 'audio' | 'wearables' | 'accessories' | 'gaming' | 'smarthome'>('audio');
+  const [newProdCategory, setNewProdCategory] = useState<'smartphones' | 'headphones' | 'earbuds' | 'neckband' | 'leads' | 'tablets' | 'smartwatches'>('headphones');
   const [newProdDesc, setNewProdDesc] = useState('');
+  const [newProdImages, setNewProdImages] = useState<string[]>([]);
+  const [uploadingProductImg, setUploadingProductImg] = useState(false);
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+
+  // Edit product images modal state
+  const [editingImagesProduct, setEditingImagesProduct] = useState<Product | null>(null);
+  const [productImgList, setProductImgList] = useState<string[]>([]);
+  const addProdImgInputRef = useRef<HTMLInputElement>(null);
+  const editProdImgInputRef = useRef<HTMLInputElement>(null);
 
   const fetchAdminData = async () => {
     setLoading(true);
@@ -130,6 +144,45 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
+  const uploadFilesToProductFolder = async (files: FileList | null, targetCategory: string): Promise<string[]> => {
+    if (!files || files.length === 0) return [];
+    const folderMap: Record<string, string> = {
+      smartphones: 'smartphones',
+      headphones: 'headphones',
+      earbuds: 'earbuds',
+      neckband: 'neckbands',
+      leads: 'leads',
+      tablets: 'tablets',
+      smartwatches: 'products',
+    };
+    const folder = folderMap[targetCategory] || 'products';
+    setUploadingProductImg(true);
+    const urls: string[] = [];
+    try {
+      for (const file of Array.from(files)) {
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ''));
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        const uploaded = await api.uploadAdminImage({
+          filename: file.name,
+          mimeType: file.type,
+          dataBase64: base64,
+          folder,
+        });
+        urls.push(uploaded.url);
+      }
+      onImagesChanged?.();
+    } catch (err: any) {
+      alert(err.message || 'Image upload failed');
+    } finally {
+      setUploadingProductImg(false);
+    }
+    return urls;
+  };
+
   const handleAddProductSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newProdName || !newProdPrice) return;
@@ -148,7 +201,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         description: newProdDesc || 'High quality electronics tuned by Zyntra acoustics.',
         features: ['High durability engineering', 'Official 1-year brand warranty'],
         specs: { Category: newProdCategory, Origin: 'Zyntra Labs' },
-        images: ['/assets/banners/hero_audio_experience_1791888604955.jpg'],
+        images: newProdImages.length > 0 ? newProdImages : ['/assets/banners/hero_audio_experience_1791888604955.jpg'],
         warranty: '1 Year Warranty',
       });
 
@@ -156,10 +209,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       setNewProdName('');
       setNewProdPrice('');
       setNewProdDesc('');
+      setNewProdImages([]);
       onRefreshProducts();
+      onImagesChanged?.();
       fetchAdminData();
     } catch (err) {
       alert('Failed to add product');
+    }
+  };
+
+  const handleSaveProductImages = async () => {
+    if (!editingImagesProduct) return;
+    try {
+      const finalImages = productImgList.length > 0 ? productImgList : ['/assets/banners/hero_audio_experience_1791888604955.jpg'];
+      await api.updateAdminProduct(editingImagesProduct.id, { images: finalImages });
+      setEditingImagesProduct(null);
+      onRefreshProducts();
+      onImagesChanged?.();
+    } catch (err: any) {
+      alert(err.message || 'Failed to update product images');
     }
   };
 
@@ -247,6 +315,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             { id: 'overview', label: 'Overview Metrics', icon: <BarChart3 className="w-3.5 h-3.5" /> },
             { id: 'orders', label: `Orders (${orders.length})`, icon: <ShoppingCart className="w-3.5 h-3.5" /> },
             { id: 'inventory', label: `Inventory (${products.length})`, icon: <Package className="w-3.5 h-3.5" /> },
+            { id: 'images', label: 'Image Management', icon: <FolderOpen className="w-3.5 h-3.5" /> },
             { id: 'coupons', label: `Coupons (${coupons.length})`, icon: <Tag className="w-3.5 h-3.5" /> },
             { id: 'subscribers', label: `Subscribers (${subscribers.length})`, icon: <Users className="w-3.5 h-3.5" /> },
           ].map((t) => (
@@ -447,7 +516,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingImagesProduct(p);
+                          setProductImgList([...p.images]);
+                        }}
+                        className="px-2.5 py-1.5 text-[11px] font-bold bg-[#F5F5F7] hover:bg-[#FEEEEF] text-[#232429] hover:text-[#A20B1A] border border-zinc-200 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>Images ({p.images.length})</span>
+                      </button>
+
                       {/* Stock controls */}
                       <div className="flex items-center gap-2 text-xs">
                         <span className="font-semibold text-zinc-600">Stock:</span>
@@ -474,6 +555,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 ))}
               </div>
             </div>
+          )}
+
+          {/* TAB 3B: IMAGE MANAGEMENT & LIVE FOLDERS */}
+          {activeTab === 'images' && (
+            <ImageManagementPanel
+              products={products}
+              categories={categories}
+              onSynced={() => {
+                onRefreshProducts();
+                onImagesChanged?.();
+              }}
+            />
           )}
 
           {/* TAB 4: COUPONS */}
@@ -573,12 +666,58 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     className="w-full p-2 border border-zinc-200 rounded-lg outline-none focus:border-[#A20B1A]"
                   >
                     <option value="smartphones">Smartphones</option>
-                    <option value="audio">Audio</option>
-                    <option value="wearables">Wearables</option>
-                    <option value="accessories">Accessories</option>
-                    <option value="gaming">Gaming</option>
-                    <option value="smarthome">Smart Home</option>
+                    <option value="headphones">Headphones</option>
+                    <option value="earbuds">Earbuds</option>
+                    <option value="neckband">Neckbands</option>
+                    <option value="leads">Leads</option>
+                    <option value="tablets">Tablets</option>
+                    <option value="smartwatches">Smart Watches</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-zinc-700 mb-1">Product Images (Main + Gallery)</label>
+                  <input
+                    ref={addProdImgInputRef}
+                    type="file"
+                    multiple
+                    accept=".jpg,.jpeg,.png,.webp,.svg"
+                    onChange={async (e) => {
+                      const urls = await uploadFilesToProductFolder(e.target.files, newProdCategory);
+                      if (urls.length > 0) setNewProdImages((prev) => [...prev, ...urls]);
+                    }}
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    disabled={uploadingProductImg}
+                    onClick={() => addProdImgInputRef.current?.click()}
+                    className="w-full py-2 px-3 border border-dashed border-zinc-300 hover:border-[#A20B1A] rounded-lg bg-[#F5F5F7] text-zinc-700 font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Upload className="w-3.5 h-3.5 text-[#A20B1A]" />
+                    <span>{uploadingProductImg ? 'Uploading to product folder...' : 'Upload Main & Additional Images'}</span>
+                  </button>
+                  {newProdImages.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {newProdImages.map((imgUrl, idx) => (
+                        <div key={imgUrl} className="relative w-14 h-14 rounded-lg border border-zinc-200 bg-white p-1">
+                          <img src={imgUrl} alt="" className="w-full h-full object-contain" />
+                          {idx === 0 && (
+                            <span className="absolute -top-1.5 -left-1.5 px-1 bg-[#A20B1A] text-white text-[8px] font-bold rounded">
+                              MAIN
+                            </span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => setNewProdImages((prev) => prev.filter((u) => u !== imgUrl))}
+                            className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-zinc-800 text-white flex items-center justify-center cursor-pointer"
+                          >
+                            <X className="w-2.5 h-2.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -608,6 +747,93 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Existing Product Images Modal */}
+        {editingImagesProduct && (
+          <div className="fixed inset-0 z-60 bg-black/65 flex items-center justify-center p-4" onClick={() => setEditingImagesProduct(null)}>
+            <div className="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl space-y-4" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between">
+                <div className="min-w-0">
+                  <h3 className="text-sm font-extrabold text-[#232429] truncate">Manage Product Images</h3>
+                  <p className="text-[11px] text-zinc-500 truncate">{editingImagesProduct.name}</p>
+                </div>
+                <button onClick={() => setEditingImagesProduct(null)} className="text-zinc-400 hover:text-zinc-700 cursor-pointer">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <input
+                ref={editProdImgInputRef}
+                type="file"
+                multiple
+                accept=".jpg,.jpeg,.png,.webp,.svg"
+                onChange={async (e) => {
+                  const urls = await uploadFilesToProductFolder(e.target.files, editingImagesProduct.category);
+                  if (urls.length > 0) setProductImgList((prev) => [...prev, ...urls]);
+                }}
+                className="hidden"
+              />
+
+              <button
+                type="button"
+                disabled={uploadingProductImg}
+                onClick={() => editProdImgInputRef.current?.click()}
+                className="w-full py-2.5 px-3 border-2 border-dashed border-zinc-300 hover:border-[#A20B1A] rounded-xl bg-[#F5F5F7] text-xs font-bold text-[#232429] flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Upload className="w-4 h-4 text-[#A20B1A]" />
+                <span>{uploadingProductImg ? 'Uploading...' : 'Upload Additional / Replacement Product Images'}</span>
+              </button>
+
+              <div className="grid grid-cols-3 gap-2.5 max-h-64 overflow-y-auto">
+                {productImgList.map((imgUrl, idx) => (
+                  <div key={`${imgUrl}-${idx}`} className="relative border border-zinc-200 rounded-xl p-2 bg-[#F5F5F7] flex flex-col items-center gap-1.5">
+                    <img src={imgUrl} alt="" className="w-full h-20 object-contain bg-white rounded-lg" />
+                    <div className="flex items-center justify-between w-full text-[10px]">
+                      {idx === 0 ? (
+                        <span className="px-1.5 py-0.5 rounded bg-[#A20B1A] text-white font-bold">Main</span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setProductImgList((prev) => [imgUrl, ...prev.filter((_, i) => i !== idx)]);
+                          }}
+                          className="text-[#A20B1A] font-bold hover:underline cursor-pointer"
+                        >
+                          Set Main
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setProductImgList((prev) => prev.filter((_, i) => i !== idx))}
+                        className="text-zinc-500 hover:text-[#A20B1A] cursor-pointer"
+                        title="Remove image from product"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-zinc-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingImagesProduct(null)}
+                  className="px-3 py-2 text-xs text-zinc-600 hover:bg-zinc-100 rounded-lg cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveProductImages}
+                  className="px-4 py-2 text-xs bg-[#A20B1A] hover:bg-[#810916] text-white font-bold rounded-lg cursor-pointer"
+                >
+                  Save & Sync Live
+                </button>
+              </div>
             </div>
           </div>
         )}

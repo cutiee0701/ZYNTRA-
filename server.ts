@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
@@ -15,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '15mb' }));
 
 // ==========================================
 // SECURE ADMIN AUTHENTICATION (Server-Side Only)
@@ -697,6 +698,418 @@ app.post('/api/v1/admin/coupons', requireAdmin, (req: Request, res: Response) =>
 
 app.get('/api/v1/admin/subscribers', requireAdmin, (_req: Request, res: Response) => {
   res.json({ success: true, data: dbStore.subscribers });
+});
+
+// ==========================================
+// LIVE PRODUCT IMAGE FOLDER & ASSET MANAGEMENT
+// ==========================================
+
+const ALLOWED_IMAGE_FOLDERS = [
+  'products',
+  'smartphones',
+  'headphones',
+  'earbuds',
+  'neckbands',
+  'leads',
+  'tablets',
+  'categories',
+  'banners',
+  'hero',
+  'sports',
+  'phone-covers',
+  'logo',
+] as const;
+
+const ALLOWED_MIME_EXT: Record<string, string> = {
+  'image/jpeg': '.jpg',
+  'image/jpg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+  'image/svg+xml': '.svg',
+};
+
+const MAX_UPLOAD_BYTES = 5 * 1024 * 1024; // 5 MB max per image
+const METADATA_FILE = path.resolve(__dirname, 'server', 'imageMetadata.json');
+
+interface ImageMetaEntry {
+  title?: string;
+  description?: string;
+  uploadedAt?: string;
+  categorySlug?: string;
+}
+
+const loadImageMetadata = (): Record<string, ImageMetaEntry> => {
+  try {
+    if (fs.existsSync(METADATA_FILE)) {
+      return JSON.parse(fs.readFileSync(METADATA_FILE, 'utf8'));
+    }
+  } catch {
+    // ignore corrupt metadata
+  }
+  return {};
+};
+
+const saveImageMetadata = (meta: Record<string, ImageMetaEntry>) => {
+  try {
+    const dir = path.dirname(METADATA_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(METADATA_FILE, JSON.stringify(meta, null, 2), 'utf8');
+  } catch (err) {
+    console.error('[Image Metadata Save Error]', err);
+  }
+};
+
+const ensureAssetFolders = () => {
+  const publicAssetsRoot = path.resolve(__dirname, 'public', 'assets');
+  for (const folder of ALLOWED_IMAGE_FOLDERS) {
+    const folderPath = path.join(publicAssetsRoot, folder);
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath, { recursive: true });
+    }
+  }
+};
+ensureAssetFolders();
+
+const scanFolderImages = (folderName: string) => {
+  const publicAssetsRoot = path.resolve(__dirname, 'public', 'assets');
+  const distAssetsRoot = path.resolve(__dirname, 'dist', 'assets');
+  const baseDir = fs.existsSync(path.join(publicAssetsRoot, folderName))
+    ? path.join(publicAssetsRoot, folderName)
+    : path.join(distAssetsRoot, folderName);
+
+  if (!fs.existsSync(baseDir)) return [];
+
+  const meta = loadImageMetadata();
+  const results: Array<{
+    name: string;
+    title: string;
+    description: string;
+    folder: string;
+    url: string;
+    sizeBytes: number;
+    updatedAt: string;
+    extension: string;
+    linkedProducts: Array<{ id: string; name: string }>;
+    linkedCategory?: string;
+  }> = [];
+
+  const walk = (dir: string, relPrefix: string) => {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath, relPrefix ? `${relPrefix}/${entry.name}` : entry.name);
+      } else if (/\.(jpe?g|png|webp|svg|gif)$/i.test(entry.name)) {
+        const stat = fs.statSync(fullPath);
+        const relFile = relPrefix ? `${relPrefix}/${entry.name}` : entry.name;
+        const url = `/assets/${folderName}/${relFile}`;
+        const m = meta[url] || {};
+        const linkedProducts = dbStore.products
+          .filter((p) => p.images.includes(url))
+          .map((p) => ({ id: p.id, name: p.name }));
+        const linkedCat = dbStore.categories.find((c) => c.image === url);
+
+        results.push({
+          name: entry.name,
+          title: m.title || entry.name.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' '),
+          description: m.description || '',
+          folder: folderName,
+          url,
+          sizeBytes: stat.size,
+          updatedAt: m.uploadedAt || stat.mtime.toISOString(),
+          extension: path.extname(entry.name).toLowerCase().replace('.', ''),
+          linkedProducts,
+          linkedCategory: linkedCat?.slug || m.categorySlug,
+        });
+      }
+    }
+  };
+
+  walk(baseDir, '');
+  results.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  return results;
+};
+
+// Public Read Endpoint: Live Product & Asset Folders
+app.get('/api/v1/images/folders', (req: Request, res: Response) => {
+  try {
+    const requestedFolder = typeof req.query.folder === 'string' ? req.query.folder : '';
+    const folders = ALLOWED_IMAGE_FOLDERS.map((folder) => {
+      const images = scanFolderImages(folder);
+      return {
+        folder,
+        path: `/assets/${folder}`,
+        count: images.length,
+        totalBytes: images.reduce((acc, i) => acc + i.sizeBytes, 0),
+        previewImage: images[0]?.url || null,
+      };
+    });
+
+    const images = requestedFolder && (ALLOWED_IMAGE_FOLDERS as readonly string[]).includes(requestedFolder)
+      ? scanFolderImages(requestedFolder)
+      : ALLOWED_IMAGE_FOLDERS.flatMap((f) => scanFolderImages(f));
+
+    res.json({
+      success: true,
+      data: {
+        folders,
+        images,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Failed to read image folders' });
+  }
+});
+
+// Public Read Endpoint: Specific Folder (e.g. /api/v1/images/folder/products)
+app.get('/api/v1/images/folder/:folder', (req: Request, res: Response) => {
+  const folder = req.params.folder;
+  if (!(ALLOWED_IMAGE_FOLDERS as readonly string[]).includes(folder)) {
+    return res.status(400).json({ success: false, message: 'Invalid image folder name' });
+  }
+  const images = scanFolderImages(folder);
+  res.json({
+    success: true,
+    data: {
+      folder,
+      path: `/assets/${folder}`,
+      count: images.length,
+      images,
+    },
+  });
+});
+
+// Admin Upload Endpoint (Permanent binary storage in public/assets/<folder>)
+app.post('/api/v1/admin/images/upload', requireAdmin, (req: Request, res: Response) => {
+  try {
+    const {
+      filename,
+      mimeType,
+      dataBase64,
+      folder = 'products',
+      title,
+      description,
+      productId,
+      categorySlug,
+      replacePath,
+    } = req.body;
+
+    if (!filename || !mimeType || !dataBase64) {
+      return res.status(400).json({ success: false, message: 'Missing filename, mimeType, or image payload' });
+    }
+
+    if (!(ALLOWED_IMAGE_FOLDERS as readonly string[]).includes(folder)) {
+      return res.status(400).json({ success: false, message: `Invalid folder "${folder}"` });
+    }
+
+    const expectedExt = ALLOWED_MIME_EXT[mimeType.toLowerCase()];
+    if (!expectedExt) {
+      return res.status(400).json({
+        success: false,
+        message: 'Unsupported file type. Allowed formats: JPG, JPEG, PNG, WEBP, SVG.',
+      });
+    }
+
+    // Strip data URI prefix if present
+    const cleanBase64 = dataBase64.replace(/^data:[^;]+;base64,/, '');
+    const buffer = Buffer.from(cleanBase64, 'base64');
+
+    if (buffer.length === 0) {
+      return res.status(400).json({ success: false, message: 'Uploaded image file is empty' });
+    }
+    if (buffer.length > MAX_UPLOAD_BYTES) {
+      return res.status(413).json({
+        success: false,
+        message: 'Image exceeds maximum allowed size of 5 MB.',
+      });
+    }
+
+    // Determine safe target path
+    let targetRelPath = '';
+    if (replacePath && typeof replacePath === 'string' && replacePath.startsWith('/assets/')) {
+      const normalized = path.posix.normalize(replacePath).replace(/^\/assets\//, '');
+      if (normalized.includes('..')) {
+        return res.status(400).json({ success: false, message: 'Invalid replace path' });
+      }
+      targetRelPath = normalized;
+    } else {
+      const baseName = path.basename(filename, path.extname(filename))
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]+/g, '_')
+        .replace(/^_+|_+$/g, '') || 'product_image';
+      const origExt = path.extname(filename).toLowerCase();
+      const finalExt = ['.jpg', '.jpeg', '.png', '.webp', '.svg'].includes(origExt) ? origExt : expectedExt;
+      let candidate = `${baseName}${finalExt}`;
+      const folderDir = path.resolve(__dirname, 'public', 'assets', folder);
+      if (!fs.existsSync(folderDir)) fs.mkdirSync(folderDir, { recursive: true });
+      if (fs.existsSync(path.join(folderDir, candidate))) {
+        candidate = `${baseName}_${Date.now().toString().slice(-5)}${finalExt}`;
+      }
+      targetRelPath = `${folder}/${candidate}`;
+    }
+
+    const publicFile = path.resolve(__dirname, 'public', 'assets', targetRelPath);
+    fs.mkdirSync(path.dirname(publicFile), { recursive: true });
+    fs.writeFileSync(publicFile, buffer);
+
+    // Mirror into dist/assets if production build folder exists so live prod server serves immediately
+    const distAssetsDir = path.resolve(__dirname, 'dist', 'assets');
+    if (fs.existsSync(distAssetsDir)) {
+      const distFile = path.resolve(distAssetsDir, targetRelPath);
+      fs.mkdirSync(path.dirname(distFile), { recursive: true });
+      fs.writeFileSync(distFile, buffer);
+    }
+
+    const publicUrl = `/assets/${targetRelPath}`;
+
+    // Save lightweight metadata
+    const meta = loadImageMetadata();
+    meta[publicUrl] = {
+      title: (title && String(title).trim()) || path.basename(targetRelPath, path.extname(targetRelPath)).replace(/[_-]+/g, ' '),
+      description: description ? String(description).trim() : '',
+      uploadedAt: new Date().toISOString(),
+      categorySlug: categorySlug || undefined,
+    };
+    saveImageMetadata(meta);
+
+    // Optionally connect to product
+    if (productId) {
+      const prod = dbStore.products.find((p) => p.id === productId);
+      if (prod && !prod.images.includes(publicUrl)) {
+        prod.images.unshift(publicUrl);
+      }
+    }
+
+    // Optionally connect to category
+    if (categorySlug) {
+      const cat = dbStore.categories.find((c) => c.slug === categorySlug);
+      if (cat) {
+        cat.image = publicUrl;
+      }
+    }
+
+    res.status(201).json({
+      success: true,
+      data: {
+        name: path.basename(targetRelPath),
+        title: meta[publicUrl].title,
+        description: meta[publicUrl].description,
+        folder: targetRelPath.split('/')[0],
+        url: publicUrl,
+        sizeBytes: buffer.length,
+        updatedAt: meta[publicUrl].uploadedAt,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Image upload failed' });
+  }
+});
+
+// Admin Update Image Metadata or Attach to Product/Category
+app.patch('/api/v1/admin/images', requireAdmin, (req: Request, res: Response) => {
+  try {
+    const { imagePath, title, description, productId, categorySlug } = req.body;
+    if (!imagePath || typeof imagePath !== 'string' || !imagePath.startsWith('/assets/')) {
+      return res.status(400).json({ success: false, message: 'Valid /assets/... imagePath is required' });
+    }
+
+    const rel = path.posix.normalize(imagePath).replace(/^\/assets\//, '');
+    if (rel.includes('..')) {
+      return res.status(400).json({ success: false, message: 'Invalid image path' });
+    }
+
+    const publicFile = path.resolve(__dirname, 'public', 'assets', rel);
+    if (!fs.existsSync(publicFile)) {
+      return res.status(404).json({ success: false, message: 'Image file not found on disk' });
+    }
+
+    const meta = loadImageMetadata();
+    meta[imagePath] = {
+      ...meta[imagePath],
+      ...(title !== undefined ? { title: String(title).trim() } : {}),
+      ...(description !== undefined ? { description: String(description).trim() } : {}),
+      ...(categorySlug !== undefined ? { categorySlug } : {}),
+    };
+    saveImageMetadata(meta);
+
+    if (productId) {
+      const prod = dbStore.products.find((p) => p.id === productId);
+      if (prod && !prod.images.includes(imagePath)) {
+        prod.images.unshift(imagePath);
+      }
+    }
+
+    if (categorySlug) {
+      const cat = dbStore.categories.find((c) => c.slug === categorySlug);
+      if (cat) {
+        cat.image = imagePath;
+      }
+    }
+
+    res.json({ success: true, data: { imagePath, metadata: meta[imagePath] } });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Failed to update image' });
+  }
+});
+
+// Admin Delete Image
+app.delete('/api/v1/admin/images', requireAdmin, (req: Request, res: Response) => {
+  try {
+    const imagePath = typeof req.body?.imagePath === 'string'
+      ? req.body.imagePath
+      : (typeof req.query.imagePath === 'string' ? req.query.imagePath : '');
+
+    if (!imagePath || !imagePath.startsWith('/assets/')) {
+      return res.status(400).json({ success: false, message: 'Valid /assets/... imagePath is required' });
+    }
+
+    const rel = path.posix.normalize(imagePath).replace(/^\/assets\//, '');
+    if (rel.includes('..')) {
+      return res.status(400).json({ success: false, message: 'Invalid image path' });
+    }
+
+    const publicFile = path.resolve(__dirname, 'public', 'assets', rel);
+    const distFile = path.resolve(__dirname, 'dist', 'assets', rel);
+
+    if (!fs.existsSync(publicFile) && !fs.existsSync(distFile)) {
+      return res.status(404).json({ success: false, message: 'Image file not found' });
+    }
+
+    if (fs.existsSync(publicFile)) fs.unlinkSync(publicFile);
+    if (fs.existsSync(distFile)) fs.unlinkSync(distFile);
+
+    // Detach deleted image from products safely (keep at least fallback if emptied)
+    dbStore.products.forEach((p) => {
+      if (p.images.includes(imagePath)) {
+        p.images = p.images.filter((img) => img !== imagePath);
+        if (p.images.length === 0) {
+          p.images = ['/assets/banners/hero_audio_experience_1791888604955.jpg'];
+        }
+      }
+    });
+
+    const meta = loadImageMetadata();
+    delete meta[imagePath];
+    saveImageMetadata(meta);
+
+    res.json({ success: true, data: { deleted: imagePath } });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Failed to delete image' });
+  }
+});
+
+// Admin Update Category Live Image
+app.patch('/api/v1/admin/categories/:slug/image', requireAdmin, (req: Request, res: Response) => {
+  const { imageUrl } = req.body;
+  if (!imageUrl || typeof imageUrl !== 'string') {
+    return res.status(400).json({ success: false, message: 'imageUrl is required' });
+  }
+  const cat = dbStore.categories.find((c) => c.slug === req.params.slug);
+  if (!cat) {
+    return res.status(404).json({ success: false, message: 'Category not found' });
+  }
+  cat.image = imageUrl;
+  res.json({ success: true, data: cat });
 });
 
 // ==========================================

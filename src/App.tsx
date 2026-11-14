@@ -22,6 +22,7 @@ import { ContactModal } from './components/ContactModal';
 import { PolicyModal } from './components/PolicyModal';
 import { FAQSection } from './components/FAQSection';
 import { AdminDashboard } from './components/AdminDashboard';
+import { ProductFolderGallery } from './components/ProductFolderGallery';
 import { GitHubSyncModal } from './components/GitHubSyncModal';
 import { Toast, ToastMessage } from './components/Toast';
 import { 
@@ -91,6 +92,9 @@ export default function App() {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
+  // Live image folder refresh counter
+  const [imagesRefreshKey, setImagesRefreshKey] = useState<number>(0);
+
   // Initial load
   const loadInitialData = async () => {
     try {
@@ -109,6 +113,11 @@ export default function App() {
     } catch (err) {
       console.error('Error loading initial store data', err);
     }
+  };
+
+  const refreshCatalogAndImages = async () => {
+    await loadInitialData();
+    setImagesRefreshKey((k) => k + 1);
   };
 
   useEffect(() => {
@@ -1066,6 +1075,13 @@ export default function App() {
         }}
       />
 
+      {/* 5b. Live Product Image Folder Gallery */}
+      <ProductFolderGallery
+        products={products}
+        refreshKey={imagesRefreshKey}
+        onSelectProduct={(p) => setSelectedProduct(p)}
+      />
+
       {/* 6. Store Trust Highlights (Shipping, Replacement, Security, Support) */}
       <StoreBenefits />
 
@@ -1271,7 +1287,9 @@ export default function App() {
         isOpen={adminOpen}
         onClose={() => setAdminOpen(false)}
         products={products}
-        onRefreshProducts={loadInitialData}
+        categories={categories}
+        onRefreshProducts={refreshCatalogAndImages}
+        onImagesChanged={refreshCatalogAndImages}
         currentUser={currentUser}
         onRequireAdminLogin={() => {
           setAuthAdminMode(true);

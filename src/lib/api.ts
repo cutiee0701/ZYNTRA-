@@ -356,6 +356,102 @@ export const api = {
     if (!data.success) throw new Error(data.message || 'Unauthorized admin access');
     return data.data;
   },
+
+  // Live Product Image Folder & Asset Management
+  async getImageFolders(folder?: string): Promise<{
+    folders: Array<{
+      folder: string;
+      path: string;
+      count: number;
+      totalBytes: number;
+      previewImage: string | null;
+    }>;
+    images: Array<{
+      name: string;
+      title: string;
+      description: string;
+      folder: string;
+      url: string;
+      sizeBytes: number;
+      updatedAt: string;
+      extension: string;
+      linkedProducts: Array<{ id: string; name: string }>;
+      linkedCategory?: string;
+    }>;
+  }> {
+    const query = folder ? `?folder=${encodeURIComponent(folder)}` : '';
+    const res = await fetch(`/api/v1/images/folders${query}`);
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Failed to load image folders');
+    return data.data;
+  },
+
+  async uploadAdminImage(payload: {
+    filename: string;
+    mimeType: string;
+    dataBase64: string;
+    folder: string;
+    title?: string;
+    description?: string;
+    productId?: string;
+    categorySlug?: string;
+    replacePath?: string;
+  }): Promise<{
+    name: string;
+    title: string;
+    description: string;
+    folder: string;
+    url: string;
+    sizeBytes: number;
+    updatedAt: string;
+  }> {
+    const res = await fetch('/api/v1/admin/images/upload', {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Image upload failed');
+    return data.data;
+  },
+
+  async updateAdminImage(payload: {
+    imagePath: string;
+    title?: string;
+    description?: string;
+    productId?: string;
+    categorySlug?: string;
+  }): Promise<any> {
+    const res = await fetch('/api/v1/admin/images', {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Image update failed');
+    return data.data;
+  },
+
+  async deleteAdminImage(imagePath: string): Promise<void> {
+    const res = await fetch('/api/v1/admin/images', {
+      method: 'DELETE',
+      headers: headers(),
+      body: JSON.stringify({ imagePath }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Failed to delete image');
+  },
+
+  async updateAdminCategoryImage(slug: string, imageUrl: string): Promise<Category> {
+    const res = await fetch(`/api/v1/admin/categories/${encodeURIComponent(slug)}/image`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify({ imageUrl }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Failed to update category image');
+    return data.data;
+  },
 };
 
 // Currency helper: formats paise integer to Indian Rupee formatted string (e.g. ₹7,999)

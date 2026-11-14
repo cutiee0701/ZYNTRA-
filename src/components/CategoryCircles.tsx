@@ -68,9 +68,19 @@ interface CategoryCirclesProps {
 }
 
 export const CategoryCircles: React.FC<CategoryCirclesProps> = ({
+  categories = [],
   activeCategory,
   onSelectCategory,
 }) => {
+  const resolveCategoryImage = (cat: ExploreCategoryItem) => {
+    const slugLower = cat.slug.toLowerCase();
+    const matched = categories.find((c) => {
+      const s = c.slug.toLowerCase();
+      return s === slugLower || (slugLower === 'neckband' && s === 'neckbands') || (slugLower === 'neckbands' && s === 'neckband');
+    });
+    return matched?.image || cat.image;
+  };
+
   return (
     <section 
       id="categories-section" 
@@ -95,6 +105,7 @@ export const CategoryCircles: React.FC<CategoryCirclesProps> = ({
           className="flex items-start justify-start md:justify-center lg:justify-between gap-5 sm:gap-6 md:gap-6 lg:gap-8 overflow-x-auto no-scrollbar scroll-smooth py-3 px-2 -mx-2"
         >
           {EXPLORE_CATEGORIES.map((cat) => {
+            const resolvedImage = resolveCategoryImage(cat);
             const isActive = activeCategory.toLowerCase() === cat.slug.toLowerCase();
             const isSmartphones = cat.slug.toLowerCase() === 'smartphones';
             const isSmartwatch = cat.slug.toLowerCase() === 'smartwatches';
@@ -146,7 +157,7 @@ export const CategoryCircles: React.FC<CategoryCirclesProps> = ({
                     }`}
                   >
                     <img
-                      src={cat.image}
+                      src={resolvedImage}
                       alt={cat.name}
                       referrerPolicy="no-referrer"
                       onError={(e) => {
