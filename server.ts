@@ -905,17 +905,14 @@ async function startServer() {
   const isProduction = process.env.NODE_ENV === 'production';
   const publicPath = path.resolve(__dirname, 'public');
   const distPath = path.resolve(__dirname, 'dist');
-  const srcAssetsPath = path.resolve(__dirname, 'src/assets');
+  const assetsDir = isProduction ? path.resolve(distPath, 'assets') : path.resolve(publicPath, 'assets');
 
-  // Universal Static Asset Routing (prevents 404s in both dev and production):
-  app.use('/images', express.static(path.resolve(publicPath, 'images')));
-  app.use('/assets', express.static(path.resolve(publicPath, 'assets')));
-  app.use('/phone_images', express.static(path.resolve(publicPath, 'phone_images')));
-  app.use('/public/images', express.static(path.resolve(publicPath, 'images')));
-  app.use('/public/assets', express.static(path.resolve(publicPath, 'assets')));
-  app.use('/public/phone_images', express.static(path.resolve(publicPath, 'phone_images')));
-  app.use('/src/assets', express.static(srcAssetsPath));
-  app.use('/public', express.static(publicPath));
+  // Universal Static Asset Routing (prevents 404s without duplicating files on disk):
+  app.use('/assets', express.static(assetsDir));
+  app.use('/images', express.static(assetsDir));
+  app.use('/public/assets', express.static(assetsDir));
+  app.use('/public/images', express.static(assetsDir));
+  app.use('/public', express.static(isProduction ? distPath : publicPath));
   app.use(express.static(publicPath));
 
   if (!isProduction) {
@@ -926,7 +923,6 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     app.use(express.static(distPath));
-    app.use('/assets', express.static(path.resolve(distPath, 'assets')));
     app.get('*', (_req, res) => {
       res.sendFile(path.resolve(distPath, 'index.html'));
     });
