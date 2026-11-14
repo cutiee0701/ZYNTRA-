@@ -51,6 +51,7 @@ const FOLDER_GROUPS = [
   { id: 'leads', label: 'Leads' },
   { id: 'tablets', label: 'Tablets' },
   { id: 'categories', label: 'Category Images' },
+  { id: 'Image Folder 2', label: 'Image Folder 2' },
   { id: 'banners', label: 'Homepage Banners' },
   { id: 'hero', label: 'Hero Section' },
   { id: 'sports', label: 'Sports Images' },

@@ -713,6 +713,7 @@ const ALLOWED_IMAGE_FOLDERS = [
   'leads',
   'tablets',
   'categories',
+  'Image Folder 2',
   'banners',
   'hero',
   'sports',
