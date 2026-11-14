@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, TrendingUp, Clock, ArrowRight, Loader2, Sparkles } from 'lucide-react';
 import { Product, Category } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface SearchBarProps {
   products: Product[];
@@ -246,10 +247,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                     }`}
                   >
                     <img
-                      src={p.images[0]}
+                      src={resolveSafeAssetUrl(p.images[0])}
                       alt={p.name}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
-                      className="w-11 h-11 object-cover rounded-lg bg-[#F5F5F7] border border-[#E6E6E6] shrink-0"
+                      onError={(e) => handleProductImageError(e, p.images.slice(1))}
+                      className="w-11 h-11 object-contain p-0.5 rounded-lg bg-[#F5F5F7] border border-[#E6E6E6] shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-bold text-[#232429] truncate">{p.name}</p>

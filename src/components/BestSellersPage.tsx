@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Product } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface BestSellersPageProps {
   products: Product[];
@@ -168,10 +169,13 @@ export const BestSellersPage: React.FC<BestSellersPageProps> = ({
                       className="cursor-pointer overflow-hidden rounded-xl bg-[#F5F5F7] aspect-4/3 mb-4 flex items-center justify-center relative"
                     >
                       <img 
-                        src={prod.images[0]} 
+                        src={resolveSafeAssetUrl(prod.images[0])} 
                         alt={prod.name}
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => handleProductImageError(e, prod.images.slice(1))}
+                        className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                       <span className="absolute bottom-2 left-2 px-2 py-0.5 bg-black/75 text-white text-[10px] font-bold rounded">
                         {prod.discountPercentage}% OFF
@@ -300,10 +304,13 @@ export const BestSellersPage: React.FC<BestSellersPageProps> = ({
                 className="p-4 cursor-pointer flex items-center justify-center relative aspect-square bg-[#F5F5F7] m-3 rounded-xl overflow-hidden"
               >
                 <img 
-                  src={prod.images[0]} 
+                  src={resolveSafeAssetUrl(prod.images[0])} 
                   alt={prod.name}
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => handleProductImageError(e, prod.images.slice(1))}
+                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                 />
                 {prod.discountPercentage > 0 && (
                   <span className="absolute top-2 left-2 bg-[#A20B1A] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-2xs">

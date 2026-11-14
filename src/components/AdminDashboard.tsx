@@ -8,6 +8,7 @@ import {
 import { Product, Order, Coupon, User, Category } from '../types';
 import { api, formatRupee } from '../lib/api';
 import { ImageManagementPanel } from './ImageManagementPanel';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface AdminDashboardProps {
   isOpen: boolean;
@@ -506,9 +507,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <div key={p.id} className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white">
                     <div className="flex items-center gap-3">
                       <img
-                        src={p.images[0]}
-                        alt=""
-                        className="w-12 h-12 object-cover rounded-lg bg-zinc-100 border border-zinc-200 shrink-0"
+                        src={resolveSafeAssetUrl(p.images[0])}
+                        alt={p.name}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => handleProductImageError(e, p.images.slice(1))}
+                        className="w-12 h-12 object-contain p-0.5 rounded-lg bg-zinc-100 border border-zinc-200 shrink-0"
                       />
                       <div>
                         <h4 className="text-xs font-bold text-zinc-900">{p.name}</h4>

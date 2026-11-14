@@ -17,6 +17,8 @@ export function resolveSafeAssetUrl(src?: string): string {
     cleaned = cleaned.replace('/public/', '/');
   } else if (cleaned.startsWith('/images/')) {
     cleaned = cleaned.replace('/images/', '/assets/');
+  } else if (cleaned.startsWith('assets/')) {
+    cleaned = '/' + cleaned;
   }
   return cleaned;
 }

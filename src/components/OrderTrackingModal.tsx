@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { Order } from '../types';
 import { api, formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface OrderTrackingModalProps {
   isOpen: boolean;
@@ -219,9 +220,13 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
                       <div className="flex items-center gap-3">
                         {it.productImage && (
                           <img
-                            src={it.productImage}
-                            alt=""
-                            className="w-10 h-10 object-cover rounded-md bg-zinc-100 border border-zinc-200 shrink-0"
+                            src={resolveSafeAssetUrl(it.productImage)}
+                            alt={it.productName}
+                            loading="lazy"
+                            decoding="async"
+                            referrerPolicy="no-referrer"
+                            onError={(e) => handleProductImageError(e)}
+                            className="w-10 h-10 object-contain p-0.5 rounded-md bg-zinc-100 border border-zinc-200 shrink-0"
                           />
                         )}
                         <div>

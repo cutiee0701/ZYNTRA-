@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight, Shield, Zap, Sparkles, Truck } from 'lucide-react';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface HeroBannerProps {
   onShopNow: (category?: string) => void;
@@ -130,9 +131,11 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onShopNow }) => {
             {/* Main Featured Image Card (matches CSS selector 2: div:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1)) */}
             <div className="relative w-full aspect-[4/3] max-w-lg rounded-2xl overflow-hidden shadow-2xl border border-white/80 bg-slate-950 group">
               <img
-                src={slide.image}
+                src={resolveSafeAssetUrl(slide.image)}
                 alt={slide.title}
+                decoding="async"
                 referrerPolicy="no-referrer"
+                onError={(e) => handleProductImageError(e)}
                 className="w-full h-full object-contain p-2 sm:p-3 transition-transform duration-700 group-hover:scale-105"
               />
               
@@ -164,9 +167,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onShopNow }) => {
                   >
                     <div className="w-full aspect-square rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center">
                       <img
-                        src={s.image}
+                        src={resolveSafeAssetUrl(s.image)}
                         alt={s.label}
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
+                        onError={(e) => handleProductImageError(e)}
                         className="w-full h-full object-cover"
                       />
                     </div>

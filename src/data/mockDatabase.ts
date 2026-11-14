@@ -2096,7 +2096,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '16 grams'
     },
     images: [
-      '/assets/leads/orange_typec_earphones.jpg',
+      '/assets/image-folder-5/earphones/01-zyntra-bassfire-orange-typec.jpg',
       '/assets/leads/61s2-Eh33CL._SL263_QL70__932830b1.jpg'
     ],
     warranty: '1 Year Brand Replacement Warranty'
@@ -2133,7 +2133,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '18 grams'
     },
     images: [
-      '/assets/leads/zebronics_silver_typec.jpg',
+      '/assets/image-folder-5/earphones/02-zyntra-sonicpro-metal-silver-typec.jpg',
       '/assets/leads/61TNOb-gNqL._SL263_QL70__047b32ab.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -2170,7 +2170,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Blush Pink & Silver'
     },
     images: [
-      '/assets/leads/pink_braided_typec.jpg',
+      '/assets/image-folder-5/earphones/03-zyntra-purepulse-pink-braided-typec.jpg',
       '/assets/leads/61_y85x34ML_fdb40a2f.jpg'
     ],
     warranty: '1 Year Doorstep Replacement Warranty'
@@ -2206,7 +2206,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '14 grams'
     },
     images: [
-      '/assets/leads/ambrane_blue_35mm.jpg',
+      '/assets/image-folder-5/earphones/04-zyntra-wavecore-cobalt-blue-35mm.jpg',
       '/assets/leads/61UJ717Kx-L_1cbb64d9.jpg'
     ],
     warranty: '6 Months Brand Warranty'
@@ -2242,7 +2242,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '14 grams'
     },
     images: [
-      '/assets/leads/ambrane_green_35mm.jpg',
+      '/assets/image-folder-5/earphones/05-zyntra-forestsound-green-35mm.jpg',
       '/assets/leads/51Uh52zIEkL._SL263_QL70__ff3d3859.jpg'
     ],
     warranty: '6 Months Brand Warranty'
@@ -2278,7 +2278,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '15 grams'
     },
     images: [
-      '/assets/leads/zebronics_navy_35mm.jpg',
+      '/assets/image-folder-5/earphones/06-zyntra-acousticflow-navy-35mm.jpg',
       '/assets/leads/images__36__38c5a0f1.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -2314,7 +2314,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '13 grams'
     },
     images: [
-      '/assets/leads/classic_black_coiled_35mm.jpg',
+      '/assets/image-folder-5/earphones/07-zyntra-classicstudio-black-coiled-35mm.jpg',
       '/assets/leads/images__37__4f1cf0d9.jpg'
     ],
     warranty: '6 Months Brand Warranty'
@@ -2349,7 +2349,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Glossy Arctic White'
     },
     images: [
-      '/assets/leads/earpods_35mm_classic.webp'
+      '/assets/image-folder-5/earphones/08-zyntra-classic-35mm-stereo-lead.webp'
     ],
     warranty: '1 Year Brand Doorstep Warranty'
   },
@@ -2383,7 +2383,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Arctic White'
     },
     images: [
-      '/assets/leads/earpods_lightning_case.webp'
+      '/assets/image-folder-5/earphones/09-zyntra-lightning-digital-case.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2417,7 +2417,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pure White'
     },
     images: [
-      '/assets/leads/earpods_lightning_retail_pack.webp'
+      '/assets/image-folder-5/earphones/10-zyntra-mfi-lightning-retail-pack.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2451,7 +2451,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Arctic White'
     },
     images: [
-      '/assets/leads/earpods_official_box.webp'
+      '/assets/image-folder-5/earphones/11-zyntra-oem-boxed-35mm-lead.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2485,7 +2485,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'White & Metallic Chrome'
     },
     images: [
-      '/assets/leads/typec_in_ear_silicone.jpg'
+      '/assets/image-folder-5/earphones/12-zyntra-typec-bass-silicone-tips.jpg'
     ],
     warranty: '1 Year Doorstep Replacement Warranty'
   },
@@ -2519,7 +2519,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'White'
     },
     images: [
-      '/assets/leads/earpods_35mm_jewel_box.webp'
+      '/assets/image-folder-5/earphones/13-zyntra-35mm-jewel-box-lead.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2553,7 +2553,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Glossy Arctic White'
     },
     images: [
-      '/assets/leads/earpods_mfi_lightning.webp'
+      '/assets/image-folder-5/earphones/14-zyntra-mfi-digital-lightning-lead.webp'
     ],
     warranty: '1 Year Comprehensive Brand Warranty'
   },
@@ -6100,7 +6100,7 @@ export const INITIAL_ORDERS: Order[] = [
       {
         productId: 'prod-1',
         productName: 'Zyntra Apex Noir Wireless ANC Headphones',
-        productImage: '/assets/headphones/product_premium_headphones_1791888605100.jpg',
+        productImage: '/assets/image-folder-5/headphones/16-zyntra-premium-studio-headphones.jpg',
         pricePaise: 799900,
         quantity: 1,
         totalPaise: 799900

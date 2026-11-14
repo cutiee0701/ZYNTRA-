@@ -53,6 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* 1. Image Showcase Container */}
       <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-[#FAFBFD] via-[#FFFFFF] to-[#F3F4F6] overflow-hidden flex items-center justify-center p-3.5 sm:p-4.5 rounded-t-2xl">
         <img
+          key={primaryImage}
           src={primaryImage}
           alt={product.name}
           loading="lazy"

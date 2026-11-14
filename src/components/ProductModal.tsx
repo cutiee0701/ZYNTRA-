@@ -82,6 +82,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="md:col-span-6 space-y-4">
             <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#FAFBFD] to-[#F5F5F7] border border-[#E6E6E6] flex items-center justify-center p-4">
               <img
+                key={resolveSafeAssetUrl(product.images[activeImageIndex] || product.images[0])}
                 src={resolveSafeAssetUrl(product.images[activeImageIndex] || product.images[0])}
                 alt={product.name}
                 decoding="async"

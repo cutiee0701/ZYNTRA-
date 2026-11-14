@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { ShoppingBag, X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
 import { CartItem } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface MiniCartDropdownProps {
   isOpen: boolean;
@@ -113,10 +114,13 @@ export const MiniCartDropdown: React.FC<MiniCartDropdownProps> = ({
           cartItems.map((item) => (
             <div key={item.id} className="py-2.5 first:pt-0 last:pb-0 flex items-center gap-3">
               <img
-                src={item.product.images[0]}
+                src={resolveSafeAssetUrl(item.product.images[0])}
                 alt={item.product.name}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
-                className="w-13 h-13 object-cover rounded-lg bg-[#F5F5F7] border border-[#E6E6E6] shrink-0"
+                onError={(e) => handleProductImageError(e, item.product.images.slice(1))}
+                className="w-13 h-13 object-contain p-0.5 rounded-lg bg-[#F5F5F7] border border-[#E6E6E6] shrink-0"
               />
               <div className="flex-1 min-w-0">
                 <h4 className="text-xs font-bold text-[#232429] truncate leading-tight">

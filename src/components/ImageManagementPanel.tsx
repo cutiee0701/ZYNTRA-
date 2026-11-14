@@ -48,7 +48,7 @@ const FOLDER_GROUPS = [
   { id: 'image-folder-2', label: 'Image Folder 2 (Phones)' },
   { id: 'image-folder-3', label: 'Image Folder 3 (Audio/Watches)' },
   { id: 'image-folder-4', label: 'Image Folder 4 (Tablets)' },
-  { id: 'image-folder-5', label: 'Image Folder 5 (Neckbands/Headphones)' },
+  { id: 'image-folder-5', label: 'Image Folder 5 (Audio & Earphones)' },
   { id: 'headphones', label: 'Headphones' },
   { id: 'earbuds', label: 'Earbuds' },
   { id: 'neckbands', label: 'Neckbands' },
