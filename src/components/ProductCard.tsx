@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Star, Heart, ShoppingBag, Check, Eye } from 'lucide-react';
 import { Product } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface ProductCardProps {
   product: Product;
@@ -20,6 +21,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const primaryImage = resolveSafeAssetUrl(product.images[0]);
 
   const handleAddToCartClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -47,24 +51,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       className="group relative bg-white border border-[#E6E8EC] hover:border-[#A20B1A]/50 rounded-2xl overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl hover:shadow-zinc-900/10 hover:-translate-y-1.5 cursor-pointer"
     >
       {/* 1. Image Showcase Container */}
-      <div className="relative aspect-[4/3] bg-gradient-to-b from-[#FAFBFD] via-[#FFFFFF] to-[#F3F4F6] overflow-hidden flex items-center justify-center p-3.5 sm:p-4.5 rounded-t-2xl">
+      <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-[#FAFBFD] via-[#FFFFFF] to-[#F3F4F6] overflow-hidden flex items-center justify-center p-3.5 sm:p-4.5 rounded-t-2xl">
         <img
-          src={product.images[0]}
+          src={primaryImage}
           alt={product.name}
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
+          onLoad={() => setImageLoaded(true)}
           onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            if (target.src.includes('/src/assets/images/')) {
-              target.src = target.src.replace('/src/assets/images/', '/assets/');
-            } else if (target.src.includes('/public/')) {
-              target.src = target.src.replace('/public/', '/');
-            } else if (target.src.includes('/images/')) {
-              target.src = target.src.replace('/images/', '/assets/');
-            } else if (product.images[1] && target.src !== product.images[1]) {
-              target.src = product.images[1];
-            }
+            setImageLoaded(true);
+            handleProductImageError(e, product.images.slice(1));
           }}
-          className="w-full h-full object-contain transition-all duration-500 ease-out group-hover:scale-108 filter drop-shadow-md group-hover:drop-shadow-xl select-none transform-gpu will-change-transform"
+          className={`w-full h-full object-contain transition-all duration-500 ease-out group-hover:scale-108 filter drop-shadow-md group-hover:drop-shadow-xl select-none transform-gpu will-change-transform ${
+            imageLoaded ? 'opacity-100' : 'opacity-90'
+          }`}
         />
 
         {/* Subtle ambient specular highlight */}

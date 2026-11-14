@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Heart, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface WishlistModalProps {
   isOpen: boolean;
@@ -66,10 +67,13 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                     className="flex items-center gap-3 flex-1 min-w-0 cursor-pointer group"
                   >
                     <img
-                      src={p.images[0]}
+                      src={resolveSafeAssetUrl(p.images[0])}
                       alt={p.name}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
-                      className="w-14 h-14 object-cover rounded-lg bg-zinc-100 border border-zinc-200 shrink-0"
+                      onError={(e) => handleProductImageError(e, p.images.slice(1))}
+                      className="w-14 h-14 object-contain p-1 rounded-lg bg-white border border-zinc-200 shrink-0"
                     />
                     <div className="min-w-0">
                       <h4 className="text-xs font-bold text-zinc-900 truncate group-hover:text-[#A20B1A] transition-colors">

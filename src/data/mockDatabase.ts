@@ -107,7 +107,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Charging Port': 'USB Type-C Fast Charge'
     },
     images: [
-      '/assets/headphones/apex_noir_black.jpg',
+      '/assets/image-folder-5/headphones/01-zyntra-apex-noir-black.jpg',
       '/assets/headphones/images__3__8769f813.jpg'
     ],
     warranty: '1 Year Manufacturer Replacement Warranty'
@@ -144,7 +144,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Midnight Slate Blue'
     },
     images: [
-      '/assets/headphones/studio_elite_navy.jpg',
+      '/assets/image-folder-5/headphones/02-zyntra-studio-elite-navy.jpg',
       '/assets/headphones/images__4__b280ae43.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -181,7 +181,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Arctic White & Brushed Silver'
     },
     images: [
-      '/assets/headphones/pure_acoustic_white.webp',
+      '/assets/image-folder-5/headphones/03-zyntra-pureacoustic-white.webp',
       '/assets/headphones/download_c14068e3.webp'
     ],
     warranty: '2 Years Manufacturer Replacement Warranty'
@@ -219,7 +219,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Nebula Black with Neon Halo'
     },
     images: [
-      '/assets/headphones/aura_rgb_gaming.jpg',
+      '/assets/image-folder-5/headphones/04-zyntra-aura-rgb-gaming.jpg',
       '/assets/headphones/images__5__8cf9cb6c.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -256,7 +256,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Stealth Black & Electric Cyan'
     },
     images: [
-      '/assets/headphones/strike_viper_cyan.jpg',
+      '/assets/image-folder-5/headphones/05-zyntra-strike-viper-cyan.jpg',
       '/assets/headphones/images__6__2623105a.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -298,8 +298,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Graphite Black with Metallic Gimbal'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_black_case.jpg',
-      '/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_case_open.jpg',
+      '/assets/image-folder-5/headphones/06-sennheiser-momentum4-black-case.jpg',
+      '/assets/image-folder-5/headphones/06b-sennheiser-momentum4-case-open.jpg',
       '/assets/headphones/hh78_04aab7ae.jpg',
       '/assets/headphones/hh7_38c4a139.jpg'
     ],
@@ -337,7 +337,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Desert Copper & Mocha'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_copper_edition.jpeg',
+      '/assets/image-folder-5/headphones/07-sennheiser-momentum4-copper.jpeg',
       '/assets/headphones/hh8_becb2ece.jpeg'
     ],
     warranty: '2 Years Sennheiser Official India Warranty'
@@ -373,7 +373,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Obsidian Studio Black'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_sennheiser_momentum4_noir_glow.jpg',
+      '/assets/image-folder-5/headphones/08-sennheiser-momentum4-obsidian.jpg',
       '/assets/headphones/hh5_e6e6755a.jpg'
     ],
     warranty: '2 Years Sennheiser Official India Warranty'
@@ -410,7 +410,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Connectivity': 'Bluetooth 5.0'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_apple_airpods_max_skyblue.jpg',
+      '/assets/image-folder-5/headphones/09-apple-airpods-max-skyblue.jpg',
       '/assets/headphones/hh4_7c00fa82.jpg'
     ],
     warranty: '1 Year Apple India Warranty + Smart Case'
@@ -447,7 +447,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Aero Silver & Charcoal'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_audiophile_silver_planar.jpg',
+      '/assets/image-folder-5/headphones/10-zyntra-reference-planar-silver.jpg',
       '/assets/headphones/hh3_d949114a.jpg'
     ],
     warranty: '2 Years Comprehensive Replacement Warranty'
@@ -484,7 +484,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Midnight Bronze'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_studio_bronze_audiophile.jpg',
+      '/assets/image-folder-5/headphones/11-zyntra-lumina-bronze.jpg',
       '/assets/headphones/hh6_9bc68874.jpg'
     ],
     warranty: '1 Year Brand Replacement Warranty'
@@ -521,7 +521,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pearl Off-White'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_edifier_w820nb_pearl_white.jpg',
+      '/assets/image-folder-5/headphones/12-edifier-w820nb-pearl-white.jpg',
       '/assets/headphones/hh2_cd65c701.jpg'
     ],
     warranty: '1 Year Edifier India Warranty'
@@ -558,7 +558,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Crisp White & Slate Velour'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_portronics_muffs_white_velour.jpg',
+      '/assets/image-folder-5/headphones/13-portronics-muffs-pro-white.jpg',
       '/assets/headphones/hh1_10a25fb7.jpg'
     ],
     warranty: '1 Year Portronics India Warranty'
@@ -595,7 +595,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Cobalt Electric Blue'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_boat_rockerz_cobalt_blue.webp',
+      '/assets/image-folder-5/headphones/14-boat-rockerz-550-cobalt-blue.webp',
       '/assets/headphones/hh_7b549a69.webp'
     ],
     warranty: '1 Year boAt Official Warranty'
@@ -633,7 +633,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Cast Silver Aluminum & Black'
     },
     images: [
-      '/assets/headphones/uploads_nov/headphone_pioneer_dj_pro_swivel.jpg',
+      '/assets/image-folder-5/headphones/15-pioneer-dj-hdjx5-silver.jpg',
       '/assets/headphones/hh89_7807e617.jpg'
     ],
     warranty: '2 Years Pioneer DJ India Warranty'
@@ -676,7 +676,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Active Jet Black'
     },
     images: [
-      '/assets/products/fireboltt_ninja_call_pro_plus.png',
+      '/assets/image-folder-3/smartwatches/01-fireboltt-ninja-call-pro-plus.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
     ],
@@ -715,7 +715,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Classic Midnight Black'
     },
     images: [
-      '/assets/products/noise_twist_round_black.png',
+      '/assets/image-folder-3/smartwatches/02-noise-twist-round-black.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
     ],
@@ -753,7 +753,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Jet Black Silicone'
     },
     images: [
-      '/assets/products/noise_pulse_2_max_black.png',
+      '/assets/image-folder-3/smartwatches/03-noise-pulse-2-max-black.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
     ],
@@ -791,7 +791,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Champagne Gold'
     },
     images: [
-      '/assets/products/noise_twist_go_gold_mesh.png',
+      '/assets/image-folder-3/smartwatches/04-noise-twist-go-gold-mesh.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
     ],
@@ -830,7 +830,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Active Black'
     },
     images: [
-      '/assets/products/boat_wave_sigma_3_nav.png',
+      '/assets/image-folder-3/smartwatches/05-boat-wave-sigma-3.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
     ],
@@ -868,7 +868,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Rose Gold & Blush Pink'
     },
     images: [
-      '/assets/products/noise_twist_go_rose_gold_pink.png',
+      '/assets/image-folder-3/smartwatches/06-noise-twist-go-rose-pink.png',
       '/assets/products/deals_smartwatches_banner_1.png',
       '/assets/products/deals_smartwatches_banner_2.png',
       '/assets/products/Screenshot_2026-10-29_155046_10c43fe7.png'
@@ -907,7 +907,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Metallic Black Chain'
     },
     images: [
-      '/assets/products/noise_twist_go_metallic_black.png',
+      '/assets/image-folder-3/smartwatches/07-noise-twist-go-metallic-black.png',
       '/assets/products/deals_smartwatches_banner_2.png',
       '/assets/products/Screenshot_2026-10-29_155106_d6999388.png'
     ],
@@ -945,7 +945,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Deep Wine Plum'
     },
     images: [
-      '/assets/products/noise_pulse_2_max_plum_wine.png',
+      '/assets/image-folder-3/smartwatches/08-noise-pulse-2-max-plum.png',
       '/assets/products/deals_smartwatches_banner_2.png',
       '/assets/products/Screenshot_2026-10-29_155106_d6999388.png'
     ],
@@ -984,7 +984,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Forest Emerald / Matte Black'
     },
     images: [
-      '/assets/products/fireboltt_ninja_call_pro_max_green.png',
+      '/assets/image-folder-3/smartwatches/09-fireboltt-ninja-call-pro-max-green.png',
       '/assets/products/deals_smartwatches_banner_2.png',
       '/assets/products/Screenshot_2026-10-29_155106_d6999388.png'
     ],
@@ -1022,7 +1022,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Rose Gold & Warm Peach'
     },
     images: [
-      '/assets/products/noise_pulse_2_max_peach_rosegold.png',
+      '/assets/image-folder-3/smartwatches/10-noise-pulse-2-max-peach.png',
       '/assets/products/deals_smartwatches_banner_2.png',
       '/assets/products/Screenshot_2026-10-29_155106_d6999388.png'
     ],
@@ -1060,7 +1060,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Compatibility': 'Android 9.0+ & iOS 14.0+'
     },
     images: [
-      '/assets/products/MJV54ref_VW_34FR_NCE_watch-case-42-aluminum-spacegray-nc-s12_VW_34FR_watch-face-42-aluminum-spacegray-s12_VW_34FR_GEO_IN_9c853a85.jpg',
+      '/assets/image-folder-3/smartwatches/11-zyntra-ultra-waterproof-titanium.jpg',
       '/assets/products/shopping_2684e723.webp',
       '/assets/products/202502200615003_099cf15d.png',
       '/assets/products/61GmCeV0PpL._AC_UF1000_1000_QL80__c1dc7717.jpg',
@@ -1099,7 +1099,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Connectivity': 'Bluetooth 5.2 BT Calling'
     },
     images: [
-      '/assets/products/49-t800-ultra-smartwatch-real-time-stock-market-updates-android-original-imagyj9jyx9s5dbf_86f6aaa9.webp'
+      '/assets/image-folder-3/smartwatches/12-zyntra-t800-ultra-49mm.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1133,7 +1133,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Protection': 'IP68 Swimproof'
     },
     images: [
-      '/assets/products/71TFyL0YQrL_721c6b1b.jpg'
+      '/assets/image-folder-3/smartwatches/13-zyntra-glamour-rose-gold.jpg'
     ],
     warranty: '1 Year Doorstep Replacement Warranty'
   },
@@ -1166,7 +1166,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Carbon Midnight Black'
     },
     images: [
-      '/assets/products/image-fallback_f05e1109.jpg'
+      '/assets/image-folder-3/smartwatches/14-zyntra-curvefit-active-black.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1200,7 +1200,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Graphite Black'
     },
     images: [
-      '/assets/products/202502200615003_099cf15d.png'
+      '/assets/image-folder-3/smartwatches/15-zyntra-fitpulse-amoled.png'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1233,7 +1233,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Midnight Black'
     },
     images: [
-      '/assets/products/61GmCeV0PpL._AC_UF1000_1000_QL80__c1dc7717.jpg'
+      '/assets/image-folder-3/smartwatches/16-zyntra-appmatrix-smartwatch.jpg'
     ],
     warranty: '1 Year Doorstep Warranty'
   },
@@ -1266,7 +1266,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Battery': '300 mAh Wireless Quick Charge'
     },
     images: [
-      '/assets/products/710FcBwPVLL._AC_UF350_350_QL80__6d569e99.jpg'
+      '/assets/image-folder-3/smartwatches/17-zyntra-connect-pro.jpg'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -1300,7 +1300,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Water Resistance': '50 Meters WR50 Swimproof'
     },
     images: [
-      '/assets/products/shopping_2684e723.webp'
+      '/assets/image-folder-3/smartwatches/18-zyntra-series-10-starlight.webp'
     ],
     warranty: '1 Year Comprehensive Brand Warranty'
   },
@@ -1336,7 +1336,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Glossy Obsidian Black'
     },
     images: [
-      '/assets/earbuds/earbuds_glossy_black.jpg'
+      '/assets/image-folder-3/earbuds/01-airpulse-pro-anc-black.jpg'
     ],
     warranty: '1 Year Doorstep Replacement Warranty'
   },
@@ -1372,7 +1372,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Titanium Silver Matte'
     },
     images: [
-      '/assets/earbuds/earbuds_silver_titanium.jpg'
+      '/assets/image-folder-3/earbuds/02-sonicflow-titanium-silver.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1408,7 +1408,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Carbon Black'
     },
     images: [
-      '/assets/earbuds/earbuds_powerbank_digital.jpg'
+      '/assets/image-folder-3/earbuds/03-powervault-digital-powerbank.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1443,7 +1443,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Tactical Matte Black'
     },
     images: [
-      '/assets/earbuds/earbuds_carabiner_black.jpg'
+      '/assets/image-folder-3/earbuds/04-trekrugged-carabiner-black.jpg'
     ],
     warranty: '1 Year Replacement Warranty'
   },
@@ -1478,7 +1478,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pastel Petal Pink'
     },
     images: [
-      '/assets/earbuds/earbuds_pastel_pink.jpg'
+      '/assets/image-folder-3/earbuds/05-pastel-bloom-pink.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1513,7 +1513,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Lavender Mist'
     },
     images: [
-      '/assets/earbuds/earbuds_lavender_matte.jpg'
+      '/assets/image-folder-3/earbuds/06-aerowave-lavender-mist.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1548,7 +1548,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Deep Velvet Maroon'
     },
     images: [
-      '/assets/earbuds/earbuds_open_ear_maroon.jpg'
+      '/assets/image-folder-3/earbuds/07-openfree-sport-maroon.jpg'
     ],
     warranty: '1 Year Doorstep Replacement Warranty'
   },
@@ -1583,7 +1583,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Metallic Emerald Green'
     },
     images: [
-      '/assets/earbuds/earbuds_emerald_green.jpg'
+      '/assets/image-folder-3/earbuds/08-neobeats-anc-emerald.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -1618,7 +1618,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '26 grams ultra-light'
     },
     images: [
-      '/assets/neckbands/neckband_emerald_gold.jpg',
+      '/assets/image-folder-5/neckbands/01-zyntra-emerald-rose-gold.jpg',
       '/assets/neckbands/images__15__a9dcd6cd.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -1653,7 +1653,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Bluetooth': '5.3 Fast Pair'
     },
     images: [
-      '/assets/neckbands/neckband_pro_sport_black.jpg',
+      '/assets/image-folder-5/neckbands/02-zyntra-turbocharge-pro-black.jpg',
       '/assets/neckbands/images__14__57b44ccb.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -1688,7 +1688,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Vibration Alert': 'Yes'
     },
     images: [
-      '/assets/neckbands/neckband_royal_blue_dual.jpg',
+      '/assets/image-folder-5/neckbands/03-zyntra-royal-wave-blue.jpg',
       '/assets/neckbands/images__13__dc365b38.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -1723,7 +1723,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Bluetooth': '5.4'
     },
     images: [
-      '/assets/neckbands/neckband_cyan_contour.jpg',
+      '/assets/image-folder-5/neckbands/04-zyntra-contour-aero-cyan.jpg',
       '/assets/neckbands/images__12__427d0d3f.jpg'
     ],
     warranty: '1 Year Brand Warranty'
@@ -1761,7 +1761,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Charging': 'Type-C Rapid Charging'
     },
     images: [
-      '/assets/neckbands/neckband_fashion_fitness_vibe.webp',
+      '/assets/image-folder-5/neckbands/05-zyntra-flexfit-sport-vibration.webp',
       '/assets/neckbands/whatsapp-image-2024-07-03-at-11-57-22-am-500x500_af5d4a17.webp'
     ],
     warranty: '1 Year Brand Doorstep Warranty'
@@ -1799,7 +1799,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Weight': '28g Featherweight'
     },
     images: [
-      '/assets/neckbands/neckband_cyber_transparent_mbuddy.webp',
+      '/assets/image-folder-5/neckbands/06-zyntra-cyberpulse-transparent.webp',
       '/assets/neckbands/1-mbuddy-533_eb0ed58b.webp'
     ],
     warranty: '1 Year Comprehensive Brand Warranty'
@@ -1837,7 +1837,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Water Resistance': 'IPX5 Sweat & Splash Proof'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_cyberwave_skyblue.webp',
+      '/assets/image-folder-5/neckbands/07-zyntra-cyberwave-skyblue.webp',
       '/assets/neckbands/blue_main_image-533_a25cdb96.webp'
     ],
     warranty: '1 Year Comprehensive Brand Warranty'
@@ -1874,7 +1874,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Bluetooth': '5.3 Instant Auto-Connect'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_landmark_silver_braided.jpg',
+      '/assets/image-folder-5/neckbands/08-landmark-silverflex-braided.jpg',
       '/assets/neckbands/images_e9180c1a.jpg'
     ],
     warranty: '1 Year Landmark Brand Warranty'
@@ -1911,7 +1911,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Emerald Teal / Forest Green'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_boat_rockerz_emerald_teal.webp',
+      '/assets/image-folder-5/neckbands/09-boat-rockerz-255-emerald.webp',
       '/assets/neckbands/257415_0_dbmzxl_93ff1134.webp'
     ],
     warranty: '1 Year boAt Brand Warranty'
@@ -1948,7 +1948,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Bluetooth': '5.3 Fast Pair'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_promate_velcon_sport.webp',
+      '/assets/image-folder-5/neckbands/10-promate-velcon-sport.webp',
       '/assets/neckbands/1_9e4932ae-bc1b-4bb4-88e9-94635cb240c1_a3d8387d.webp'
     ],
     warranty: '1 Year Promate Brand Warranty'
@@ -1985,7 +1985,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Water Resistance': 'IPX5 Sweat & Water Resistance'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_eq_charge_navy_blue.webp',
+      '/assets/image-folder-5/neckbands/11-zyntra-eq-charge-navy.webp',
       '/assets/neckbands/EQ_charge_31439306.webp'
     ],
     warranty: '1 Year Brand Warranty'
@@ -2022,7 +2022,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Bumblebee Yellow & Gunmetal Grey'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_ubon_u7_yellow.webp',
+      '/assets/image-folder-5/neckbands/12-ubon-u7-yellow-gunmetal.webp',
       '/assets/neckbands/UBON_U7_Wireless_Neckband_Design_202607281826_49e06053.webp'
     ],
     warranty: '1 Year UBON Brand Warranty'
@@ -2059,7 +2059,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Charging': 'Type-C Fast Charge'
     },
     images: [
-      '/assets/neckbands/uploads_nov/neckband_zebronics_raga_f2_black.webp',
+      '/assets/image-folder-5/neckbands/13-zebronics-raga-f2-black.webp',
       '/assets/neckbands/Zeb-RagaF2-pic1_9547fe2f-a523-483f-92d2-71839204eb1f_59ea198a.webp'
     ],
     warranty: '1 Year Zebronics Brand Warranty'
@@ -2589,7 +2589,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Cameras': '8MP Rear AF + 5MP Ultra-wide Front'
     },
     images: [
-      '/assets/tablets/galaxy_tab_a11_plus.png'
+      '/assets/image-folder-4/tablets/01-samsung-galaxy-tab-a11-plus.png'
     ],
     warranty: '1 Year Brand Manufacturer Warranty'
   },
@@ -2625,7 +2625,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'OS': 'Xiaomi HyperOS 2.0 with HyperAI'
     },
     images: [
-      '/assets/tablets/xiaomi_pad_8_flagship.png'
+      '/assets/image-folder-4/tablets/02-xiaomi-pad-8-flagship.png'
     ],
     warranty: '1 Year Doorstep Brand Warranty'
   },
@@ -2661,7 +2661,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Sky Blue Metallic Finish'
     },
     images: [
-      '/assets/tablets/redmi_pad_2_sky_blue.jpg'
+      '/assets/image-folder-4/tablets/03-redmi-pad-2-sky-blue.jpg'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2697,7 +2697,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Included Accessories': 'Galaxy S Pen Stylus'
     },
     images: [
-      '/assets/tablets/galaxy_tab_s12_ultra.jpg'
+      '/assets/image-folder-4/tablets/04-samsung-galaxy-tab-s12-ultra.jpg'
     ],
     warranty: '1 Year Comprehensive Brand Warranty'
   },
@@ -2733,7 +2733,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Champagne Gold'
     },
     images: [
-      '/assets/tablets/itab_moviez_champagne_gold.webp'
+      '/assets/image-folder-4/tablets/05-iball-itab-moviez-gold.webp'
     ],
     warranty: '1 Year Brand Doorstep Service'
   },
@@ -2769,7 +2769,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Periwinkle Blue Matte'
     },
     images: [
-      '/assets/tablets/pad_pro_periwinkle_blue.webp'
+      '/assets/image-folder-4/tablets/06-zyntra-airtab-pro-periwinkle.webp'
     ],
     warranty: '1 Year Brand Warranty'
   },
@@ -2805,7 +2805,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Brushed Aerospace Silver'
     },
     images: [
-      '/assets/tablets/air_tab_silver_edition.jpg'
+      '/assets/image-folder-4/tablets/07-zyntra-edgetab-silver.jpg'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -2842,7 +2842,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pastel Baby Pink'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_1_pink_stand.png'
+      '/assets/image-folder-4/tablets/08-zyntra-tab-10-pink-stand.png'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -2879,7 +2879,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Matte Onyx Black'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_2_black_bundle.png'
+      '/assets/image-folder-4/tablets/09-zyntra-workstation-tab-10-black.png'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -2916,7 +2916,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Space Grey Brushed Metal'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_3_n19_duo.png'
+      '/assets/image-folder-4/tablets/10-ikall-n19-4g-calling-grey.png'
     ],
     warranty: '1 Year IKALL Manufacturer Warranty'
   },
@@ -2953,7 +2953,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Sky Blue Pastel Metallic'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_4_skyblue_bundle.png'
+      '/assets/image-folder-4/tablets/11-zyntra-tab-10-sky-blue-bundle.png'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -2990,7 +2990,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pure White Bezel with Onyx Folio Case'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_5_black_folio.png'
+      '/assets/image-folder-4/tablets/12-zyntra-playtab-101-folio.png'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -3027,7 +3027,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Arctic Grey Dual-Tone Metal'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_6_lenovo_duo.png'
+      '/assets/image-folder-4/tablets/13-lenovo-tab-m9-arctic-grey.png'
     ],
     warranty: '1 Year Lenovo Manufacturer Warranty'
   },
@@ -3064,7 +3064,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Slate Grey Diamond Armor'
     },
     images: [
-      '/assets/tablets/new_arrivals/tablet_7_grey_kickstand.png'
+      '/assets/image-folder-4/tablets/14-zyntra-armortab-10-rugged.png'
     ],
     warranty: '1 Year Brand Replacement Warranty'
   },
@@ -3104,7 +3104,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Titanium Armor Frame with IP48 Water Resistance'
     },
     images: [
-      '/assets/smartphones/new_arrivals/galaxy_zfold8_ultra_device.png',
+      '/assets/image-folder-2/01-samsung-galaxy-z-fold8-ultra.png',
       '/assets/smartphones/new_arrivals/galaxy_zfold8_ultra_banner.png',
       '/assets/smartphones/Screenshot_2026-10-30_161140_823a0ca3.png'
     ],
@@ -3142,7 +3142,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Grade 5 Titanium Band with Ceramic Shield Front'
     },
     images: [
-      '/assets/smartphones/new_arrivals/iphone_18_pro_max_device.png',
+      '/assets/image-folder-2/02-apple-iphone-18-pro-max.png',
       '/assets/smartphones/new_arrivals/iphone_18_pro_max_card.png',
       '/assets/smartphones/Screenshot_2026-10-30_160952_cb0742b8.png'
     ],
@@ -3180,7 +3180,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Titanium Frame with Ceramic Shield Gen 2'
     },
     images: [
-      '/assets/smartphones/new_arrivals/iphone_17_pro_max_device.png',
+      '/assets/image-folder-2/05-apple-iphone-17-pro-max.png',
       '/assets/smartphones/new_arrivals/iphone_17_pro_max_card.png',
       '/assets/smartphones/Screenshot_2026-10-30_160945_4efcbb21.png'
     ],
@@ -3218,7 +3218,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Titanium Band with Ceramic Shield Front'
     },
     images: [
-      '/assets/smartphones/new_arrivals/iphone_17_pro_device.png',
+      '/assets/image-folder-2/08-apple-iphone-17-pro.png',
       '/assets/smartphones/new_arrivals/iphone_17_pro_card.png',
       '/assets/smartphones/Screenshot_2026-10-30_160945_4efcbb21.png'
     ],
@@ -3256,7 +3256,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'IP68 & IP69 Dust and High-Pressure Water Resistant'
     },
     images: [
-      '/assets/smartphones/new_arrivals/oppo_find_x8_pro_amber.png',
+      '/assets/image-folder-2/13-oppo-find-x8-pro-amber.png',
       '/assets/smartphones/Screenshot_2026-10-30_161449_523352e4.png'
     ],
     warranty: '1 Year OPPO India Comprehensive Warranty'
@@ -3293,7 +3293,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Enhanced Armor Aluminum with IP68 Water Resistance'
     },
     images: [
-      '/assets/smartphones/new_arrivals/samsung_galaxy_onyx_grey.png',
+      '/assets/image-folder-2/16-samsung-galaxy-s25-plus-onyx.png',
       '/assets/smartphones/Screenshot_2026-10-30_161204_9d8ab2db.png'
     ],
     warranty: '1 Year Samsung India Warranty'
@@ -3330,7 +3330,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Satin Matte Glass with IP68/IP69 Ingress Protection'
     },
     images: [
-      '/assets/smartphones/new_arrivals/vivo_x200_pro_olive_green.png',
+      '/assets/image-folder-2/17-vivo-x200-pro-olive.png',
       '/assets/smartphones/Screenshot_2026-10-30_161403_d65f9556.png'
     ],
     warranty: '1 Year Vivo India Warranty + Free Screen Replacement'
@@ -3367,7 +3367,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Armor Aluminum Frame with IP68 Rating'
     },
     images: [
-      '/assets/smartphones/new_arrivals/samsung_galaxy_emerald_green.png',
+      '/assets/image-folder-2/18-samsung-galaxy-s25-emerald.png',
       '/assets/smartphones/Screenshot_2026-10-30_161204_9d8ab2db.png'
     ],
     warranty: '1 Year Samsung India Warranty'
@@ -3404,7 +3404,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Graphite AG Frosted Glass with IP68/IP69'
     },
     images: [
-      '/assets/smartphones/new_arrivals/oppo_find_x8_graphite.png',
+      '/assets/image-folder-2/19-oppo-find-x8-graphite.png',
       '/assets/smartphones/Screenshot_2026-10-30_161449_523352e4.png'
     ],
     warranty: '1 Year OPPO India Warranty'
@@ -3441,7 +3441,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Build': 'Curved Glass with IP68 Water & Dust Resistance'
     },
     images: [
-      '/assets/smartphones/new_arrivals/vivo_x100_charcoal_zeiss.png',
+      '/assets/image-folder-2/21-vivo-x100-pro-charcoal.png',
       '/assets/smartphones/Screenshot_2026-10-30_161347_66f9d5a5.png'
     ],
     warranty: '1 Year Vivo India Warranty'
@@ -3704,7 +3704,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Silver Shadow Titanium Finish'
     },
     images: [
-      '/assets/smartphones/samsung_galaxy_zfold6.webp',
+      '/assets/image-folder-2/03-samsung-galaxy-z-fold6.webp',
       '/assets/smartphones/shopping__2__023b1250.webp'
     ],
     warranty: '1 Year Samsung India Domestic Warranty + 1 Year Screen Protection'
@@ -3740,9 +3740,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Titanium Silver Special Edition'
     },
     images: [
-      '/assets/smartphones/samsung_s24_ultra_special_silver.webp',
+      '/assets/image-folder-2/07-samsung-galaxy-s24-ultra-silver.webp',
       '/assets/smartphones/shopping_1.webp',
-      '/assets/smartphones/shopping (1).webp',
       '/assets/smartphones/shopping (1).webp'
     ],
     warranty: '1 Year Samsung India Warranty'
@@ -3779,7 +3778,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Titanium Silver, Burgundy & Porcelain Trio'
     },
     images: [
-      '/assets/smartphones/flagship_trio_samsung_iphone_pixel.jpg',
+      '/assets/image-folder-2/09-flagship-trio-elite.jpg',
       '/assets/smartphones/images__8__521a0e7d.jpg'
     ],
     warranty: '1 Year Comprehensive Brand India Domestic Warranty'
@@ -3817,7 +3816,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Mint Blue'
     },
     images: [
-      '/assets/smartphones/galaxy_edge_5g.jpg',
+      '/assets/image-folder-2/11-samsung-galaxy-z-flip6.jpg',
       '/assets/smartphones/shopping_1.webp'
     ],
     warranty: '1 Year Samsung India Warranty + 1 Year Screen Protection'
@@ -3854,7 +3853,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Ultramarine Blue'
     },
     images: [
-      '/assets/smartphones/apple_iphone_16_plus.webp',
+      '/assets/image-folder-2/14-apple-iphone-16-plus.webp',
       '/assets/smartphones/shopping__4__88b07f44.webp'
     ],
     warranty: '1 Year Apple India Warranty'
@@ -3891,7 +3890,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Pearl Ceramic White'
     },
     images: [
-      '/assets/smartphones/oppo_find_x7_pearl_white.jpg',
+      '/assets/image-folder-2/20-oppo-find-x7-ultra-pearl.jpg',
       '/assets/smartphones/images__30__bd2f3280.jpg'
     ],
     warranty: '1 Year VIP Brand Warranty with Free Screen Protection'
@@ -3928,7 +3927,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Cobalt Violet'
     },
     images: [
-      '/assets/smartphones/shopping_1.webp',
+      '/assets/image-folder-2/22-samsung-galaxy-s24-cobalt.webp',
       '/assets/smartphones/samsung_s24_ultra_special_silver.webp'
     ],
     warranty: '1 Year Samsung India Warranty'
@@ -3965,7 +3964,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Silky Black'
     },
     images: [
-      '/assets/smartphones/oneplus_12_black.jpg',
+      '/assets/image-folder-2/23-oneplus-12-silky-black.jpg',
       '/assets/smartphones/images__29__6ff2bfeb.jpg'
     ],
     warranty: '1 Year Brand Comprehensive Warranty'
@@ -4962,7 +4961,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Deep Burgundy Plum'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_iphone18_plum.png'
+      '/assets/image-folder-2/04-apple-iphone-18-pro-plum.png'
     ],
     warranty: '1 Year Apple Brand Warranty'
   },
@@ -4998,7 +4997,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Sky Blue Ceramic'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_iphone18_skyblue.png'
+      '/assets/image-folder-2/15-apple-iphone-18-skyblue.png'
     ],
     warranty: '1 Year Apple Brand Warranty'
   },
@@ -5034,7 +5033,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Titanium Silver'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_s24u_amazon_no1.png'
+      '/assets/image-folder-2/12-samsung-galaxy-s24-ultra-bestseller.png'
     ],
     warranty: '1 Year Samsung Brand Warranty'
   },
@@ -5070,7 +5069,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Desert Titanium'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_iphone16_desert_titanium.png'
+      '/assets/image-folder-2/10-apple-iphone-16-pro-desert.png'
     ],
     warranty: '1 Year Apple Brand Warranty'
   },
@@ -5106,7 +5105,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Titanium Phantom Silver'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_galaxy_s25_ultra.png'
+      '/assets/image-folder-2/06-samsung-galaxy-s25-ultra.png'
     ],
     warranty: '1 Year Samsung Brand Warranty'
   },
@@ -5898,7 +5897,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Color': 'Olive Green'
     },
     images: [
-      '/assets/smartphones/uploads_nov/phone_vivo_x200_olive_circle.png'
+      '/assets/image-folder-2/24-vivo-x200-olive-circle.png'
     ],
     warranty: '1 Year Vivo Brand Warranty'
   },

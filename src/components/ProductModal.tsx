@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, Star, Heart, ShoppingBag, ShieldCheck, Truck, RotateCcw, 
   Check, Share2, Plus, Minus, Zap 
 } from 'lucide-react';
 import { Product } from '../types';
 import { formatRupee } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface ProductModalProps {
   product: Product | null;
@@ -23,12 +24,17 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   onAddToCart,
   onBuyNow,
 }) => {
-  if (!product) return null;
-
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+    setQuantity(1);
+  }, [product?.id]);
+
+  if (!product) return null;
 
   const handleQuantityChange = (delta: number) => {
     setQuantity((prev) => {
@@ -74,23 +80,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           
           {/* Left Column: Image Gallery */}
           <div className="md:col-span-6 space-y-4">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-b from-[#FAFBFD] to-[#F5F5F7] border border-[#E6E6E6] flex items-center justify-center p-4">
+            <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#FAFBFD] to-[#F5F5F7] border border-[#E6E6E6] flex items-center justify-center p-4">
               <img
-                src={product.images[activeImageIndex] || product.images[0]}
+                src={resolveSafeAssetUrl(product.images[activeImageIndex] || product.images[0])}
                 alt={product.name}
+                decoding="async"
                 referrerPolicy="no-referrer"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  if (target.src.includes('/src/assets/images/')) {
-                    target.src = target.src.replace('/src/assets/images/', '/assets/');
-                  } else if (target.src.includes('/public/')) {
-                    target.src = target.src.replace('/public/', '/');
-                  } else if (target.src.includes('/images/')) {
-                    target.src = target.src.replace('/images/', '/assets/');
-                  } else if (product.images[1] && target.src !== product.images[1]) {
-                    target.src = product.images[1];
-                  }
-                }}
+                onError={(e) => handleProductImageError(e, product.images)}
                 className="w-full h-full object-contain filter drop-shadow-xs"
               />
               {product.discountPercentage > 0 && (
@@ -112,18 +108,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     }`}
                   >
                     <img 
-                      src={img} 
-                      alt="" 
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        if (target.src.includes('/src/assets/images/')) {
-                          target.src = target.src.replace('/src/assets/images/', '/assets/');
-                        } else if (target.src.includes('/public/')) {
-                          target.src = target.src.replace('/public/', '/');
-                        } else if (target.src.includes('/images/')) {
-                          target.src = target.src.replace('/images/', '/assets/');
-                        }
-                      }}
+                      src={resolveSafeAssetUrl(img)} 
+                      alt={`${product.name} view ${idx + 1}`} 
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => handleProductImageError(e, product.images)}
                       className="w-full h-full object-contain" 
                     />
                   </button>

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { CartItem, Coupon } from '../types';
 import { formatRupee, api } from '../lib/api';
+import { resolveSafeAssetUrl, handleProductImageError } from '../lib/imageFallback';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -140,10 +141,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               cartItems.map((item) => (
                 <div key={item.id} className="py-4 first:pt-0 last:pb-0 flex gap-4">
                   <img
-                    src={item.product.images[0]}
+                    src={resolveSafeAssetUrl(item.product.images[0])}
                     alt={item.product.name}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
-                    className="w-20 h-20 object-cover rounded-lg bg-zinc-100 border border-zinc-200 shrink-0"
+                    onError={(e) => handleProductImageError(e, item.product.images.slice(1))}
+                    className="w-20 h-20 object-contain p-1 rounded-lg bg-white border border-zinc-200 shrink-0"
                   />
                   
                   <div className="flex-1 flex flex-col justify-between">

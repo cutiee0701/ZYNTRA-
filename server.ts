@@ -707,6 +707,10 @@ app.get('/api/v1/admin/subscribers', requireAdmin, (_req: Request, res: Response
 const ALLOWED_IMAGE_FOLDERS = [
   'products',
   'smartphones',
+  'image-folder-2',
+  'image-folder-3',
+  'image-folder-4',
+  'image-folder-5',
   'headphones',
   'earbuds',
   'neckbands',
